@@ -1,13 +1,92 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#body {
+  font-family: monospace;
+  background-color: #F8F9FA;
+}
+.body__section {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+}
+.body__nav {
+  width: 17vw;
+  height: 100vh;
+  background-color: #7a82a1;
+
+}
+.main {
+  width: 83vw;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.main__div {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.main__nav {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80vw;
+  height: 15vh;
+}
+
+.main__nav--search-bar {
+
+}
+.main__nav-sort{
+  background-color: rgb(255,255,255);
+  height: 45px;
+}
+.main__catalog {
+  width: 80vw;
+  height: 85vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.catalog__item{
+  background-color: #FFFFFF;
+  border: 1px solid #ebebeb;
+  max-height: 240px;
+  max-width: 270px;
+  margin-top: 10px;
+  margin-left: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 3px 5px #ebebeb;
+
+
+}
+
+.catalog__item-photo img {
+
+  height: 180px;
+  width: 170px;
+  margin: 0 auto;
+  /*display: flex;*/
+  /*align-items: center;*/
+}
+
+.catalog__item-name {
+  padding-left: 15px;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 2px;
+}
+.catalog__item-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+}
+
+@media  screen  and (max-width: 728px){
+  .body__nav {
+    display: none;
+  }
 }
