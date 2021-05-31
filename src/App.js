@@ -1,6 +1,6 @@
 import './App.css';
 import Sort from "./Sort";
-import SearchBar from "./HeaderSearch"
+import SearchBar from "./Common/HeaderSearchBar"
 import SideNav from "./SideNav"
 import Catalog from "./Catalog";
 
@@ -12,10 +12,6 @@ function App() {
           <SideNav/>
           <main className="main">
             <div className="main__div">
-              <nav className="main__nav">
-                <SearchBar/>
-                <Sort/>
-              </nav>
               <Catalog/>
             </div>
           </main>

@@ -1,21 +1,142 @@
-#body {
-  font-family: monospace;
+body {
+  font-family: Helvetica;
   background-color: #F8F9FA;
+  padding: 0;
+  margin: 0;
 }
 .body__section {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
-
 }
+
+
+/* !!!!!!!!!!!!!მარცხენა მხარის ნავიგაცია*/
 .body__nav {
-  width: 17vw;
+  min-width: 18vw;
   height: 100vh;
-  background-color: #7a82a1;
-
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: #FFFFFF;
 }
+.body__nav-image {
+  width: 3.5vw;
+}
+
+.body__nav-icons{
+  width: 100%;
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body__nav-logo {
+  height: 65px;
+  border-bottom: 1px solid #dde3ee;
+}
+.body__nav-profile {
+  height: 65px;
+  padding-top: 10px;
+}
+
+.body__nav-icons img:hover {
+  height: 95%;
+  width: 95%;
+  background-color: cornflowerblue;
+}
+.body__nav--photos img{
+  height: 60%;
+  width: 60%;
+}
+.body__nav-logo img {
+  height: 35%;
+  width: 60%;
+}
+.body__nav-profile img{
+  height: 50%;
+  width: 60%;
+  border-radius: 25px;
+  border: 2px double #70D9E2;
+}
+
+/* !!!!!!!მარცხენა მხარის მეორე ნავიგაცია */
+.body__nav-navigator {
+  width: 14.5vw;
+  background-color: #7a82a1;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 0px #dde3ee inset;
+}
+.body__nav-niche {
+  height: 55px;
+  box-shadow: 1px 0px #dde3ee inset;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  background-color: #5D6B9F;
+}
+.body__nav-category {
+  background-color: #9DA9D5;
+  height: 55px;
+  box-shadow: 1px 0px #dde3ee inset;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.body__nav-details {
+  padding-top: 20px;
+  background-color: #ECEDF5;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  box-shadow: 1px 0px #dde3ee inset;
+}
+.nav-details__item {
+  border-radius: 3px;
+  height: 6%;
+  width: 85%;
+  box-shadow: 0px 1px #dde3ee;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+  font-size: 13px;
+  color: #29304B;
+}
+.nav-details__item-image {
+  width: 8px;
+  height: 8px;
+  padding-right: 10px;
+}
+.nav__niche-text {
+  color: white;
+  font-size: 14px;
+}
+
+.niche__items--producer {
+  height: 10px;
+  width: 10px;
+}
+
+
+
+/*მთავარი ნაწილი*/
 .main {
-  width: 83vw;
+  padding-left: 18vw;
+  width: 80vw;
   height: 100vh;
 }
 
@@ -24,69 +145,196 @@
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+/* header and Search-bar */
+
 .main__nav {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
   width: 80vw;
-  height: 15vh;
+  height: 11vh;
 }
 
-.main__nav--search-bar {
-
+.main__nav-search-bar {
 }
+.search-bar {
+  width: 400px;
+  height: 35px;
+  font-size: 12px;
+  color: #3B425B;
+  padding-left: 10px;
+  border-radius: 8px;
+  border: 1px solid #dde3ee;
+}
+#searchButton {
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  border: 1px solid #dde3ee;
+  background-color: #FFFFFF;
+}
+#searchButton img {
+  width: 55%;
+  height: 35%;
+}
+
+.header__button-inventory {
+  height: 45px;
+  width: 145px;
+  background-color: #61D5DF;
+  border: none;
+  color: #FFFFFF;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
+.header__button--selector {
+  height: 35px;
+  width: 100px;
+  margin-right: 15px;
+}
+.header__span {
+  color: #3E455D;
+  font-size: 13px;
+  padding-left: 15px;
+  border-left: 2px solid #DBDCDC;
+}
+
+
+/* Sort */
 .main__nav-sort{
   background-color: rgb(255,255,255);
   height: 45px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 14px;
+  padding-left: 90px;
+  color: #ACA9A9;
 }
+.main__nav-select {
+  margin-left: 10px;
+  border: none;
+  color: #ACA9A9;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.nav-select__option {
+  color: black;
+  font-size: 13px;
+}
+
+/* კატალოგი */
 .main__catalog {
   width: 80vw;
   height: 85vh;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 15px;
+  justify-content:  center;
+  gap: 25px;
+  margin: 15px auto;
+}
+.catalog__item:hover {
+  border: 2px solid #61D5DF;
 }
 .catalog__item{
-  background-color: #FFFFFF;
-  border: 1px solid #ebebeb;
-  max-height: 240px;
+  background-color: #FBFBFB;
+  height: 290px;
+  flex: 1 290px;
   max-width: 270px;
-  margin-top: 10px;
-  margin-left: 20px;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  box-shadow: 3px 5px #ebebeb;
-
-
+  justify-content: space-around;
+  border: 2px solid #dde3ee;
+  padding: 2px;
 }
 
+.catalog__item-photo {
+  width: 100%;
+  height: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .catalog__item-photo img {
-
-  height: 180px;
-  width: 170px;
-  margin: 0 auto;
-  /*display: flex;*/
-  /*align-items: center;*/
+  height: 95%;
+  width: 65%;
 }
 
 .catalog__item-name {
-  padding-left: 15px;
+  height: 50px;
   border-bottom: 1px solid #ebebeb;
   padding-bottom: 2px;
-}
-.catalog__item-price {
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-size: 13px;
+  color: #434343;
+  padding-left: 10px;
+}
+.catalog__item-price {
+  color: #616161;
+  font-size: 16px;
+  display: flex;
+  height: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   padding-top: 3px;
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  padding-left: 10px;
 }
 
-@media  screen  and (max-width: 728px){
+
+
+.checkbox {
+  position: absolute;
+  margin-bottom: 180px;
+  margin-right: 210px;
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  color: #61D5DF;
+}
+
+
+
+@media  screen  and (max-width: 1000px){
   .body__nav {
+    display: none;
+  }
+}
+
+@media  screen  and (max-width: 1000px){
+  .main__div {
+    margin: 0 auto;
+  }
+}
+
+@media  screen  and (max-width: 1000px){
+  .header__span {
+    display: none;
+  }
+}
+@media  screen  and (max-width: 1000px){
+  .search-bar{
+    width: 100px;
+  }
+}
+@media  screen  and (max-width: 570px){
+  .header__button-inventory{
     display: none;
   }
 }
