@@ -1,18 +1,18 @@
 import Checkbox from "../Checkbox";
 
 
-const SingleProduct = ({product, onChange}) => {
+const SingleProduct = ({product, onChange, handleOpen}) => {
     return (
         <div>
             <div className="catalog__item">
-                <div className="catalog__item-photo">
-                    <Checkbox increment={onChange}/>
+                <Checkbox increment={onChange}/>
+                <div className="catalog__item-photo" onClick={() => handleOpen(product)}>
                     <img src={product.image}/>
                 </div>
-                <div className="catalog__item-name">
+                <div className="catalog__item-name" onClick={() => handleOpen(product)}>
                     {product.title}
                 </div>
-                <div className="catalog__item-price">
+                <div className="catalog__item-price" onClick={() => handleOpen(product)}>
                     {product.price}$
                 </div>
             </div>

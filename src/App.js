@@ -1,6 +1,4 @@
 import './App.css';
-import Sort from "./Sort";
-import SearchBar from "./Common/HeaderSearchBar"
 import SideNav from "./SideNav"
 import Catalog from "./Catalog";
 
