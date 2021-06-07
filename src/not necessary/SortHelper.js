@@ -65,3 +65,23 @@ function App() {
 }
 
 export default App;
+
+
+// useEffect(() => {
+//     const sortArray = type => {
+//         const types = {
+//             highToLow: "price",
+//             lowToHigh: "price",
+//         };
+//         const sortProperty = types[type];
+//         const sorted = [...productsData].sort((a, b) => {if (type === "highToLow") {
+//                     return (b[sortProperty] - a[sortProperty]);
+//                 } else if (type === "lowToHigh") {
+//                     return (a[sortProperty] - b[sortProperty]);
+//                 }
+//             }
+//         )
+//         setProductsData(sorted);
+//     };
+//     sortArray(sortType);
+// }, [sortType]);
