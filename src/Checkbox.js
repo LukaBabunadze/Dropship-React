@@ -1,15 +1,19 @@
-import {useState} from "react";
+import React from 'react';
 
-const Checkbox = ({increment}) => {
-    const [checked, setChecked] = useState(false)
+const Checkbox = ({isChecked, handleCheckProduct}) => {
 
-    const changeChecked = (e) => {
-        setChecked(e.target.checked);
-        increment(e.target.checked ? 1 : -1);
-    }
+
+
     return(
-        <input className="checkbox" type="checkbox" value={checked} onChange={changeChecked}></input>
+        <input
+            className="checkbox"
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckProduct}
+            onClick={handleCheckProduct}
+        >
+        </input>
     );
-};
+}
 
 export default Checkbox;

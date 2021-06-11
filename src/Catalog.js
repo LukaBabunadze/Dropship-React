@@ -7,6 +7,7 @@ import SelectedItemNum from "./SelectedItemNum";
 import axios from "axios";
 import SortHtml from "./Common/SortHtml";
 import Modal from "./Common/Modal"
+import Checkbox from "./Checkbox";
 
 
 const Catalog = () => {
@@ -14,12 +15,13 @@ const Catalog = () => {
     const [productsData, setProductsData] = useState([]);
     const [inputText, setInputText] = useState('search...');
     const [sortType, setSortType] = useState();
-    const [count, setCount] = useState(0);
-
     const [modalData, setModalData] = useState([]);
     const [modalOpen, setModalOpen] = useState(false)
 
 
+
+
+    // *** Sort ***
     useEffect(() => {
         const sortArray = type => {
             const types = {
@@ -47,6 +49,10 @@ const Catalog = () => {
         sortArray(sortType);
     }, [sortType]);
 
+
+
+    // *** Axios Get Data ***
+
     useEffect(() => {
         axios
             .get("https://fakestoreapi.com/products")
@@ -57,18 +63,21 @@ const Catalog = () => {
         setProductsData(allProducts);
     }, [])
 
+
+
+
+    // *** SearCh ***
+
     const changeInput = (e) => {
         setInputText(e.target.value);
     }
 
-
     const searchedProducts = () => {
-        setProductsData(productsData.filter(item => item.title.includes(inputText)));
+        setProductsData(productsData.filter(item => item.title.toLowerCase().includes(inputText.toLowerCase())));
     }
 
-    const changeCount = (increment) => {
-        setCount(count + increment);
-    };
+
+    // *** Modal ***
 
     const handleOpen = ({image, price, title, description}) => {
         setModalOpen(true);
@@ -78,13 +87,40 @@ const Catalog = () => {
         setModalOpen(false);
     };
 
+
+
+    // *** Select All / Clear All ***
+
+    const handleCheckProduct = (productId) => {
+        const checkedProducts = productsData.map(product =>
+            product.id === productId
+                ? {...product, isChecked: !product.isChecked}
+                : product
+        );
+        setProductsData(checkedProducts);
+    };
+
+    const selectedProducts = productsData.filter((product) => product.isChecked);
+    console.log(selectedProducts);
+
+
+    const handleClearAll = () => {
+        setProductsData(productsData.map((product) => ({...product, isChecked: false})))
+    }
+
+    const handleSelectAll = () => {
+      setProductsData(productsData.map((product) => ({...product, isChecked: true})))
+    };
+
+
     return (
 
         <div>
             <nav className="main__nav">
                 <div>
-                    <Buttons classname="header__button-inventory header__button--selector" name="SELECT ALL"/>
-                    <span className="header__span">selected {count} out of 20 products</span>
+                    <Buttons classname="header__button-inventory header__button--selector" name="SELECT ALL" handleSelectAll={handleSelectAll}/>
+                    <span className="header__span">{`selected ${selectedProducts.length} out of ${productsData.length} products`}</span>
+                    {selectedProducts.length > 0 ? <Buttons classname="header__button-inventory header__button--selector" name="CLEAR SELECTED" handleClearAll={handleClearAll}/> : ""}
                 </div>
 
                 <div className="main__nav-search-bar">
@@ -104,7 +140,12 @@ const Catalog = () => {
             <section className="main__catalog">
                 {
                     productsData.map( item => {
-                         return <SingleProduct product={item} onChange={changeCount} handleOpen={handleOpen}/>
+                         return <SingleProduct
+                             product={item}
+                             handleOpen={handleOpen}
+                             isChecked={item.isChecked}
+                             handleCheckProduct={() => handleCheckProduct(item.id)}
+                         />
                     })
                 }
             </section>

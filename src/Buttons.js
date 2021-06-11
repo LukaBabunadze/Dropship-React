@@ -1,8 +1,7 @@
-const Buttons = ({classname, name}) => {
+const Buttons = ({classname, name, handleSelectAll, handleClearAll}) => {
     return(
-            <button className={classname}><b>{name}</b></button>
-
+            <button className={classname} onClick={name==="CLEAR SELECTED" ? handleClearAll : handleSelectAll}><b>{name}</b></button>
     );
 };
 
-export default Buttons
+export default Buttons;

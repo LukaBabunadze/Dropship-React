@@ -1,6 +1,6 @@
 const Modal = ({modalData, handleClose}) => {
     return (
-        <div className="modal-backdrop">
+        <div className="modal-backdrop" onClick={handleClose}>
             <div className="modal-content-wrapper" >
                 <div className="modal-item__right">
                     <div className="item__info-price">
