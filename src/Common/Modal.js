@@ -1,4 +1,10 @@
-const Modal = ({modalData, handleClose}) => {
+import {useEffect, useState} from "react";
+
+const Modal = ({modalData, handleClose, isOpen }) => {
+
+
+
+
     return (
         <div className="modal-backdrop" onClick={handleClose}>
             <div className="modal-content-wrapper" >

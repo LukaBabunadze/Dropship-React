@@ -1,6 +1,7 @@
 import './App.css';
 import SideNav from "./SideNav"
 import Catalog from "./Catalog";
+import {Router, Switch, Route} from "react-router-dom"
 
 function App() {
   return (
@@ -10,7 +11,11 @@ function App() {
           <SideNav/>
           <main className="main">
             <div className="main__div">
-              <Catalog/>
+              <Switch>
+                <Route path="/catalog/:id?">
+                  <Catalog/>
+                </Route>
+              </Switch>
             </div>
           </main>
         </div>

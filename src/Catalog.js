@@ -1,3 +1,4 @@
+import React from "react";
 import {useEffect, useState} from "react";
 import SingleProduct from "./Common/SingleProduct";
 import SearchBar from "./Common/HeaderSearchBar";
@@ -8,6 +9,12 @@ import axios from "axios";
 import SortHtml from "./Common/SortHtml";
 import Modal from "./Common/Modal"
 import Checkbox from "./Checkbox";
+import Grid from "@material-ui/core/Grid"
+import Paper from "@material-ui/core/Paper"
+import {makeStyles} from "@material-ui/core/styles"
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
 
 
 const Catalog = () => {
@@ -17,6 +24,9 @@ const Catalog = () => {
     const [sortType, setSortType] = useState();
     const [modalData, setModalData] = useState([]);
     const [modalOpen, setModalOpen] = useState(false)
+    const history = useHistory();
+
+
 
 
 
@@ -84,6 +94,7 @@ const Catalog = () => {
         setModalData({image, price, title, description});
     };
     const handleClose = () => {
+        history.goBack();
         setModalOpen(false);
     };
 
@@ -113,6 +124,20 @@ const Catalog = () => {
     };
 
 
+    // *** Material-Ui ***
+    const useStyles = makeStyles( ({
+        root: {
+            flexGrow: 1,
+        },
+    }));
+
+    // *** Modal Id ***
+
+    const {id} = useParams();
+
+
+
+
     return (
 
         <div>
@@ -138,18 +163,37 @@ const Catalog = () => {
 
 
             <section className="main__catalog">
-                {
-                    productsData.map( item => {
-                         return <SingleProduct
-                             product={item}
-                             handleOpen={handleOpen}
-                             isChecked={item.isChecked}
-                             handleCheckProduct={() => handleCheckProduct(item.id)}
-                         />
-                    })
-                }
+                <Grid container spacing={2}>
+                    {
+                        productsData.map( singleProduct => {
+
+                            return (<Grid item
+                                          container
+                                          justify={"center"}
+                                          alignItems="center"
+                                          direction="row"
+                                          xx={12}
+                                          md={6}
+                                          lg={3}
+                            >
+                                <Link style={{textDecoration: "none"}} to={`/catalog/${singleProduct.id}`}>
+                                    <Paper elevation={0} style={{borderRadius: 12, marginLeft: 20}}>
+
+                                        <SingleProduct
+                                            product={singleProduct}
+                                            handleOpen={handleOpen}
+                                            isChecked={singleProduct.isChecked}
+                                            handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
+                                        />
+
+                                    </Paper>
+                                </Link>
+                            </Grid>)
+                        })
+                    }
+                </Grid>
             </section>
-            {modalOpen && <Modal modalData={modalData} handleClose={handleClose}/>}
+            {modalOpen && <Modal modalData={modalData} handleClose={handleClose} isOpen={id}/>}
         </div>
 
     );

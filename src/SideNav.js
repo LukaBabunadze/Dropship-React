@@ -12,8 +12,7 @@ import SideDetails from "./SideDetails";
 import NicheAndCategory from "./NicheAndCategory";
 import bluearrow from "./Icons/bluearrow.png"
 import NavLinks from "./NavLinks";
-
-
+import {Link} from "react-router-dom";
 
 
 const SideNav = () => {
@@ -24,7 +23,7 @@ const SideNav = () => {
                     <NavLinks firstClass="body__nav-icons body__nav-logo" source={logo}/>
                     <NavLinks firstClass="body__nav-icons body__nav-profile" source={unknown}/>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={speed}/>
-                    <NavLinks firstClass="body__nav-icons body__nav--photos" source={wamowolilebi}/>
+                    <Link to="/catalog"><NavLinks firstClass="body__nav-icons body__nav--photos" source={wamowolilebi}/></Link>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={kuti}/>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={urika}/>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={ptichka}/>
@@ -49,7 +48,6 @@ const SideNav = () => {
                             <img  className="nav-details__item-image" src={bluearrow}/>
                         </div>
                     </aside>
-
                 </div>
             </nav>
         </div>
