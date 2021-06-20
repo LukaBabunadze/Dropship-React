@@ -13,6 +13,7 @@ import NicheAndCategory from "./NicheAndCategory";
 import bluearrow from "./Icons/bluearrow.png"
 import NavLinks from "./NavLinks";
 import {Link} from "react-router-dom";
+import Categories from "./Categories";
 
 
 const SideNav = () => {
@@ -20,7 +21,7 @@ const SideNav = () => {
         <div>
             <nav className="body__nav">
                 <div className="body__nav-image">
-                    <NavLinks firstClass="body__nav-icons body__nav-logo" source={logo}/>
+                    <Link to="/dashboard"><NavLinks firstClass="body__nav-icons body__nav-logo" source={logo}/></Link>
                     <NavLinks firstClass="body__nav-icons body__nav-profile" source={unknown}/>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={speed}/>
                     <Link to="/catalog"><NavLinks firstClass="body__nav-icons body__nav--photos" source={wamowolilebi}/></Link>
@@ -31,24 +32,7 @@ const SideNav = () => {
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={chamonatvali}/>
 
                 </div>
-                <div className="body__nav-navigator">
-                    <NicheAndCategory mainClass="body__nav-niche" name="Choose Niche" paragraphClass="nav__niche-text"/>
-                    <NicheAndCategory mainClass="body__nav-category" name="Choose Category" paragraphClass="nav__niche-text"/>
-                    <aside className="body__nav-details">
-                        <div className="nav-details__item">
-                            <p>Ship From</p>
-                            <img  className="nav-details__item-image" src={bluearrow}/>
-                        </div>
-                        <div className="nav-details__item">
-                            <p>Ship To</p>
-                            <img  className="nav-details__item-image" src={bluearrow}/>
-                        </div>
-                        <div className="nav-details__item">
-                            <p>Select Supplier</p>
-                            <img  className="nav-details__item-image" src={bluearrow}/>
-                        </div>
-                    </aside>
-                </div>
+                <Categories />
             </nav>
         </div>
 

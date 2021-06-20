@@ -498,3 +498,12 @@ price__item-Rrp {
     display: none;
   }
 }
+
+
+@media  screen  and (max-width: 1000px){
+  .main__nav-sort{
+    display: none;
+  }
+}
+
+
