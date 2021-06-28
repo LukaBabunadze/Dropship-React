@@ -3,7 +3,6 @@ import Checkbox from "../Checkbox";
 
 const SingleProduct = ({
                            product,
-                           handleOpen,
                            isChecked,
                            handleCheckProduct,
 
@@ -17,14 +16,15 @@ const SingleProduct = ({
                 <Checkbox
                     isChecked={isChecked}
                     handleCheckProduct={handleCheckProduct}
+                    checked={isChecked}
                 />
-                <div className="catalog__item-photo" onClick={() => handleOpen(product)}>
+                <div className="catalog__item-photo" >
                     <img src={product.image}/>
                 </div>
-                <div className="catalog__item-name" onClick={() => handleOpen(product)}>
+                <div className="catalog__item-name" >
                     {product.title}
                 </div>
-                <div className="catalog__item-price" onClick={() => handleOpen(product)}>
+                <div className="catalog__item-price" >
                     {product.price}$
                 </div>
             </div>

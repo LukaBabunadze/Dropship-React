@@ -10,7 +10,9 @@ const Checkbox = ({isChecked, handleCheckProduct}) => {
             type="checkbox"
             checked={isChecked}
             onChange={handleCheckProduct}
-            onClick={handleCheckProduct}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
         >
         </input>
     );

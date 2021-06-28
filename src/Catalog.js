@@ -22,12 +22,7 @@ const Catalog = () => {
     const [productsData, setProductsData] = useState([]);
     const [inputText, setInputText] = useState('search...');
     const [sortType, setSortType] = useState();
-    const [modalData, setModalData] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false)
-    const history = useHistory();
-
-
-
+    const [selectedProducts, setSelectedProducts] = useState([]);
 
 
 
@@ -61,16 +56,15 @@ const Catalog = () => {
 
 
 
+
     // *** Axios Get Data ***
 
     useEffect(() => {
         axios
             .get("https://fakestoreapi.com/products")
             .then(res => localStorage.setItem("products", JSON.stringify(res.data)))
-    }, [])
-    useEffect(() => {
-        const allProducts = JSON.parse(localStorage.getItem("products"));
-        setProductsData(allProducts);
+            setProductsData(JSON.parse(localStorage.getItem("products")));
+
     }, [])
 
 
@@ -87,18 +81,6 @@ const Catalog = () => {
     }
 
 
-    // *** Modal ***
-
-    const handleOpen = ({image, price, title, description}) => {
-        setModalOpen(true);
-        setModalData({image, price, title, description});
-    };
-    const handleClose = () => {
-        history.goBack();
-        setModalOpen(false);
-    };
-
-
 
     // *** Select All / Clear All ***
 
@@ -109,10 +91,12 @@ const Catalog = () => {
                 : product
         );
         setProductsData(checkedProducts);
+
     };
 
-    const selectedProducts = productsData.filter((product) => product.isChecked);
-    console.log(selectedProducts);
+    useEffect(() => {
+        setSelectedProducts(productsData.filter((product) => product.isChecked));
+    }, [productsData])
 
 
     const handleClearAll = () => {
@@ -120,8 +104,10 @@ const Catalog = () => {
     }
 
     const handleSelectAll = () => {
-      setProductsData(productsData.map((product) => ({...product, isChecked: true})))
+        setProductsData(productsData.map((product) => ({...product, isChecked: true})))
     };
+
+
 
 
     // *** Material-Ui ***
@@ -131,10 +117,10 @@ const Catalog = () => {
         },
     }));
 
+
     // *** Modal Id ***
 
     const {id} = useParams();
-
 
 
 
@@ -149,7 +135,7 @@ const Catalog = () => {
                 </div>
 
                 <div className="main__nav-search-bar">
-                    <input type="text" className="search-bar" value={inputText} id="searchQuery" onChange={changeInput}/>
+                    <input type="text" className="search-bar" placeholder={inputText} id="searchQuery" onChange={changeInput}/>
                     <button id="searchButton" onClick={searchedProducts}><img src={searchicon}/></button>
                     <Buttons classname="header__button-inventory" name="ADD TO INVENTORY"/>
                 </div>
@@ -167,33 +153,36 @@ const Catalog = () => {
                     {
                         productsData.map( singleProduct => {
 
-                            return (<Grid item
-                                          container
-                                          justify={"center"}
-                                          alignItems="center"
-                                          direction="row"
-                                          xx={12}
-                                          md={6}
-                                          lg={3}
-                            >
-                                <Link style={{textDecoration: "none"}} to={`/catalog/${singleProduct.id}`}>
-                                    <Paper elevation={0} style={{borderRadius: 12, marginLeft: 20}}>
+                                return (<Grid item
+                                              container
+                                              justify={"center"}
+                                              alignItems="center"
+                                              direction="row"
+                                              xs={12}
+                                              md={6}
+                                              lg={3}
 
-                                        <SingleProduct
-                                            product={singleProduct}
-                                            handleOpen={handleOpen}
-                                            isChecked={singleProduct.isChecked}
-                                            handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
-                                        />
+                                >
+                                    <Link style={{textDecoration: "none"}} to={`/catalog/${singleProduct.id}`}>
+                                        <Paper elevation={0} style={{borderRadius: 12, marginLeft: 20}}>
 
-                                    </Paper>
-                                </Link>
-                            </Grid>)
-                        })
+                                            <SingleProduct
+                                                product={singleProduct}
+                                                isChecked={singleProduct.isChecked}
+                                                handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
+                                            />
+
+                                        </Paper>
+                                    </Link>
+
+                                </Grid>)
+
+                            }
+                        )
                     }
                 </Grid>
             </section>
-            {modalOpen && <Modal modalData={modalData} handleClose={handleClose} isOpen={id}/>}
+            <Modal  isOpen={id} />
         </div>
 
     );
