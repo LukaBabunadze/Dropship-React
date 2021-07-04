@@ -1,25 +1,21 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import SingleProduct from "./Common/SingleProduct";
-import SearchBar from "./Common/HeaderSearchBar";
 import searchicon from "./Icons/searchicon.png"
 import Buttons from "./Buttons";
-import SelectedItemNum from "./SelectedItemNum";
 import axios from "axios";
 import SortHtml from "./Common/SortHtml";
 import Modal from "./Common/Modal"
-import Checkbox from "./Checkbox";
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import {makeStyles} from "@material-ui/core/styles"
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
+import {products as productsAPI} from "./Common/API";
 
 
 const Catalog = () => {
 
-    const [productsData, setProductsData] = useState([]);
+    const [products, setProducts] = useState([]);
     const [inputText, setInputText] = useState('search...');
     const [sortType, setSortType] = useState();
     const [selectedProducts, setSelectedProducts] = useState([]);
@@ -36,7 +32,7 @@ const Catalog = () => {
                 zToA: "title",
             };
             const sortProperty = types[type];
-            const sorted = [...productsData].sort((a, b) => {if (type === "highToLow") {
+            const sorted = [...products].sort((a, b) => {if (type === "highToLow") {
                 return (b[sortProperty] - a[sortProperty]);
             } else if (type === "lowToHigh") {
                 return (a[sortProperty] - b[sortProperty]);
@@ -49,7 +45,7 @@ const Catalog = () => {
                 };
                 }
             );
-            setProductsData(sorted);
+            setProducts(sorted);
         };
         sortArray(sortType);
     }, [sortType]);
@@ -60,11 +56,9 @@ const Catalog = () => {
     // *** Axios Get Data ***
 
     useEffect(() => {
-        axios
-            .get("https://fakestoreapi.com/products")
-            .then(res => localStorage.setItem("products", JSON.stringify(res.data)))
-            setProductsData(JSON.parse(localStorage.getItem("products")));
-
+        productsAPI().then(res => {
+            setProducts(res);
+        })
     }, [])
 
 
@@ -77,7 +71,7 @@ const Catalog = () => {
     }
 
     const searchedProducts = () => {
-        setProductsData(productsData.filter(item => item.title.toLowerCase().includes(inputText.toLowerCase())));
+        setProducts(products.filter(item => item.title.toLowerCase().includes(inputText.toLowerCase())));
     }
 
 
@@ -85,26 +79,26 @@ const Catalog = () => {
     // *** Select All / Clear All ***
 
     const handleCheckProduct = (productId) => {
-        const checkedProducts = productsData.map(product =>
+        const checkedProducts = products.map(product =>
             product.id === productId
                 ? {...product, isChecked: !product.isChecked}
                 : product
         );
-        setProductsData(checkedProducts);
+        setProducts(checkedProducts);
 
     };
 
     useEffect(() => {
-        setSelectedProducts(productsData.filter((product) => product.isChecked));
-    }, [productsData])
+        setSelectedProducts(products.filter((product) => product.isChecked));
+    }, [products])
 
 
     const handleClearAll = () => {
-        setProductsData(productsData.map((product) => ({...product, isChecked: false})))
+        setProducts(products.map((product) => ({...product, isChecked: false})))
     }
 
     const handleSelectAll = () => {
-        setProductsData(productsData.map((product) => ({...product, isChecked: true})))
+        setProducts(products.map((product) => ({...product, isChecked: true})))
     };
 
 
@@ -130,7 +124,7 @@ const Catalog = () => {
             <nav className="main__nav">
                 <div>
                     <Buttons classname="header__button-inventory header__button--selector" name="SELECT ALL" handleSelectAll={handleSelectAll}/>
-                    <span className="header__span">{`selected ${selectedProducts.length} out of ${productsData.length} products`}</span>
+                    <span className="header__span">{`selected ${selectedProducts.length} out of ${products.length} products`}</span>
                     {selectedProducts.length > 0 ? <Buttons classname="header__button-inventory header__button--selector" name="CLEAR SELECTED" handleClearAll={handleClearAll}/> : ""}
                 </div>
 
@@ -151,7 +145,7 @@ const Catalog = () => {
             <section className="main__catalog">
                 <Grid container spacing={2}>
                     {
-                        productsData.map( singleProduct => {
+                        products.map( singleProduct => {
 
                                 return (<Grid item
                                               container
@@ -167,7 +161,10 @@ const Catalog = () => {
                                         <Paper elevation={0} style={{borderRadius: 12, marginLeft: 20}}>
 
                                             <SingleProduct
-                                                product={singleProduct}
+                                                image={singleProduct.imageUrl}
+                                                productId={singleProduct.id}
+                                                price={singleProduct.price}
+                                                title={singleProduct.title}
                                                 isChecked={singleProduct.isChecked}
                                                 handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
                                             />

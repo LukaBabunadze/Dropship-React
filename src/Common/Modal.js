@@ -1,21 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
+import {getProduct} from "./API";
 
 const Modal = ({ isOpen }) => {
 
     const [open, setOpen] = useState(isOpen)
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/${isOpen}`)
-            .then(res => res.json())
-            .then(response => {
-                    setProduct(response)
-                setOpen(isOpen)
-                }
-            )
-
+        getProduct(isOpen).then(res => {
+            setProduct(res);
+        })
+            setOpen(isOpen);
     }, [isOpen])
 
     const modalClose = () => {
@@ -29,7 +26,7 @@ const Modal = ({ isOpen }) => {
     return (
         <>
             {open && <div className="modal-backdrop" onClick={modalClose}>
-                <div className="modal-content-wrapper" >
+                <div key={ isOpen } className="modal-content-wrapper" >
                     <div className="modal-item__right">
                         <div className="item__info-price">
                             <ul className="price__item">
@@ -51,7 +48,7 @@ const Modal = ({ isOpen }) => {
                             </ul>
                         </div>
                         <div className="modal__item-image">
-                            <img className="item__image" alt="Photo.png" src={product.image} />
+                            <img className="item__image" alt="Photo.png" src={product.imageUrl} />
                         </div>
                     </div>
                     <div className="modal-item__left">
