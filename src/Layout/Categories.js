@@ -1,4 +1,4 @@
-import NicheAndCategory from "./NicheAndCategory";
+import NicheAndCategory from "./Layout/NicheAndCategory";
 import bluearrow from "./Icons/bluearrow.png";
 import {Switch, Route} from "react-router-dom";
 import {Slider, Typography, Button} from "@material-ui/core";

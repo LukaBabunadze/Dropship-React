@@ -2,7 +2,7 @@ import React from "react";
 import {useEffect, useState} from "react";
 import SingleProduct from "./Common/SingleProduct";
 import searchicon from "./Icons/searchicon.png"
-import Buttons from "./Buttons";
+import Buttons from "./Common/Buttons";
 import axios from "axios";
 import SortHtml from "./Common/SortHtml";
 import Modal from "./Common/Modal"
@@ -11,9 +11,13 @@ import Paper from "@material-ui/core/Paper"
 import {makeStyles} from "@material-ui/core/styles"
 import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
 import {products as productsAPI} from "./Common/API";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const Catalog = () => {
+
+    const productList = useSelector(state => state.products.productList)
+    const dispatch = useDispatch();
 
     const [products, setProducts] = useState([]);
     const [inputText, setInputText] = useState('search...');
