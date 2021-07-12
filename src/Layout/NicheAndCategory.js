@@ -1,4 +1,4 @@
-import arrow from "./Icons/arrow.png";
+import arrow from "../Icons/arrow.png";
 
 const NicheAndCategory = ({mainClass, name, paragraphClass}) => {
     return (

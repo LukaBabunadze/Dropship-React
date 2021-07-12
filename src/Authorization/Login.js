@@ -1,7 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Input} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Switch,Route, useHistory} from "react-router-dom";
 import {login} from "../Common/API";
 
 
@@ -55,45 +55,49 @@ const Login = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) loginSuccess()
-        else {
-            history.push("/");
-        }
+        // else {
+        //     history.push("/");
+        // }
     }, [])
 
     return(
-        <Dialog  open={true}>
-            <div className={classes.root}>
-                <DialogTitle>
-                    Members Log In
-                </DialogTitle>
-                <DialogActions>
-                        <form className={classes.inputs} onSubmit={performLogin}>
-                            <Input
-                                type="text"
-                                placeholder="email"
-                                value={email}
-                                className={classes.inputItem}
-                                onChange={(e)=>{setEmail(e.target.value)}}
-                            />
-                            <Input
-                                type="password"
-                                placeholder="password"
-                                value={password}
-                                className={classes.inputItem}
-                                onChange={(e) => {setPassword(e.target.value)}}
-                            />
-                            <Input
-                                placeholder="Log In"
-                                type="submit"
-                                className={classes.inputItem}
-                            />
-                        </form>
-                </DialogActions>
-                <DialogContent>
-                    <p>Or Log In With</p>
-                </DialogContent>
-            </div>
-        </Dialog>
+        <Switch>
+            <Route path="/login">
+                <Dialog  open={true}>
+                    <div className={classes.root}>
+                        <DialogTitle>
+                            Members Log In
+                        </DialogTitle>
+                        <DialogActions>
+                            <form className={classes.inputs} onSubmit={performLogin}>
+                                <Input
+                                    type="text"
+                                    placeholder="email"
+                                    value={email}
+                                    className={classes.inputItem}
+                                    onChange={(e)=>{setEmail(e.target.value)}}
+                                />
+                                <Input
+                                    type="password"
+                                    placeholder="password"
+                                    value={password}
+                                    className={classes.inputItem}
+                                    onChange={(e) => {setPassword(e.target.value)}}
+                                />
+                                <Input
+                                    placeholder="Log In"
+                                    type="submit"
+                                    className={classes.inputItem}
+                                />
+                            </form>
+                        </DialogActions>
+                        <DialogContent>
+                            <p>Or Log In With</p>
+                        </DialogContent>
+                    </div>
+                </Dialog>
+            </Route>
+        </Switch>
     );
 };
 

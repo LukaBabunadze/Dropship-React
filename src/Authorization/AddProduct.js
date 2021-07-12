@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {getProduct, updateProduct, addProduct} from "../Common/API";
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import {Button} from "@material-ui/core";
@@ -52,7 +52,7 @@ const AddProduct = () => {
           }).catch (err => {alert(err.message)})
       }  else {
           addProduct(values).then(res => {
-              alert("product was added successfully")
+              alert("product was added successfully");
           }).catch (err => {alert(err.message)})
       }
     };

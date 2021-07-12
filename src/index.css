@@ -471,6 +471,57 @@ price__item-Rrp {
   height: 20px;
 }
 
+.firstPage__main {
+  height: 100vh;
+  width: 99vw;
+  background-image: url("./Icons/laptop.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #a7bee8;
+  opacity: 0.9;
+  background-blend-mode: multiply;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.firstPage__main-text {
+  height: 250px;
+  width: 700px;
+  border-radius: 4px;
+  color: white;
+  background-color: #2B2C41;
+  opacity: 0.8;
+  text-align: center;
+}
+.span__title-num {
+  padding-top: 50px;
+  font-size: 45px;
+  font-weight: 200;
+  color: #75BECC;
+  margin: auto;
+}
+.span__title-name {
+  margin-top: -13px;
+  padding-top: -1px;
+  font-size: 18px;
+}
+.span-slogan {
+  color: #ffffff;
+  padding-top: 10px;
+  font-size: 20px;
+  letter-spacing: 1.8px;
+  line-height: 30px;
+}
+
+
+.firstPage__main-par {
+  margin: auto;
+}
+
 
 @media  screen  and (max-width: 1000px){
   .body__nav {

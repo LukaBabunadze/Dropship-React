@@ -1,26 +1,28 @@
 import React, {useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {getProduct} from "./API";
+import {useDispatch, useSelector} from "react-redux";
+import {getProductsAction} from "../Reducers/ProductsReducer/ProductsActions";
 
 const Modal = ({ isOpen }) => {
 
     const [open, setOpen] = useState(isOpen)
-    const [product, setProduct] = useState([]);
+
+    const product = useSelector(state => state.products.product)
     const history = useHistory();
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getProduct(isOpen).then(res => {
-            setProduct(res);
-        })
-            setOpen(isOpen);
+        getProduct(isOpen).then(res =>
+            dispatch(getProductsAction(res))
+        )
+        setOpen(isOpen);
     }, [isOpen])
 
     const modalClose = () => {
-        setProduct({});
         history.push("/catalog")
         setOpen(false);
     }
-
 
 
     return (

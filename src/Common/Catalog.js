@@ -1,16 +1,16 @@
 import React from "react";
 import {useEffect, useState} from "react";
-import SingleProduct from "./Common/SingleProduct";
-import searchicon from "./Icons/searchicon.png"
-import Buttons from "./Common/Buttons";
+import SingleProduct from "./SingleProduct";
+import searchicon from "../Icons/searchicon.png"
+import Buttons from "./Buttons";
 import axios from "axios";
-import SortHtml from "./Common/SortHtml";
-import Modal from "./Common/Modal"
+import SortHtml from "./SortHtml";
+import Modal from "./Modal"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import {makeStyles} from "@material-ui/core/styles"
 import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
-import {products as productsAPI} from "./Common/API";
+import {products as productsAPI} from "./API";
 import {useDispatch, useSelector} from "react-redux";
 
 

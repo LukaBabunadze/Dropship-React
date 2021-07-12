@@ -36,8 +36,7 @@ export const cart = async() => {
     }
 };
 
-export const addToCart = async (productId, qty, e) => {
-    e.stopPropagation();
+export const addToCart = async (productId, qty) => {
     const results = await axios.post(SERVER_URL_V1 + "cart/add", {productId, qty});
     return results.data.data;
 };
@@ -60,5 +59,10 @@ export const updateProduct = async (id, values) => {
 export const addProduct = async (values) => {
   const results = await axios.post(SERVER_URL_V1 + "products", values);
   return results.data.data;
+};
+
+export const userRegistration = async (values) => {
+    const results = await axios.post(SERVER_URL + "register", values);
+    return results.data.data;
 };
 

@@ -1,4 +1,4 @@
-import bluearrow from "./Icons/bluearrow.png";
+import bluearrow from "../Icons/bluearrow.png";
 
 const SideDetails = ({name}) => {
     return(

@@ -1,4 +1,4 @@
-import logo from "./Icons/logo.png";
+import logo from "../Icons/logo.png";
 
 const NavLinks = ({firstClass, source}) => {
     return(
