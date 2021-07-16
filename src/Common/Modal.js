@@ -8,18 +8,19 @@ const Modal = ({ isOpen }) => {
 
     const [open, setOpen] = useState(isOpen)
 
-    const product = useSelector(state => state.products.product)
+    const [product, setProduct] = useState([]);
     const history = useHistory();
     const dispatch = useDispatch();
 
     useEffect(() => {
         getProduct(isOpen).then(res =>
-            dispatch(getProductsAction(res))
+            setProduct(res)
         )
         setOpen(isOpen);
     }, [isOpen])
 
     const modalClose = () => {
+        setProduct([]);
         history.push("/catalog")
         setOpen(false);
     }
