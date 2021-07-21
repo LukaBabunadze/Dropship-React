@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const FirstPage = () => {
+const LandingPage = () => {
 
     const classes = useStyles();
     const history = useHistory();
@@ -139,4 +139,4 @@ const FirstPage = () => {
     );
 };
 
-export default FirstPage;
+export default LandingPage;

@@ -13,7 +13,7 @@ body {
 
 /* !!!!!!!!!!!!!მარცხენა მხარის ნავიგაცია*/
 .body__nav {
-  min-width: 18vw;
+  min-width: 4vw; /*18*/
   height: 100vh;
   position: fixed;
   display: flex;
@@ -207,6 +207,7 @@ body {
 
 /* Sort */
 .main__nav-sort{
+  width: available;
   background-color: rgb(255,255,255);
   height: 45px;
   display: flex;
@@ -242,6 +243,7 @@ body {
   gap: 25px;
   margin: 15px auto;
 }
+
 .catalog__item:hover {
   border: 2px solid #61D5DF;
 }
@@ -522,6 +524,64 @@ price__item-Rrp {
   margin: auto;
 }
 
+/*Cart*/
+
+.cart__header {
+  padding-left: 3px;
+  color: #303856;
+  font-size: 17px;
+  margin-top: 25px;
+}
+
+
+/* Log In */
+
+.login__item--wrapper {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.login__item-line {
+  border-bottom: 1px solid grey;
+  width: 120px;
+}
+.login__logo {
+  height: 30px;
+}
+.login__header {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-items: flex-start;
+  margin-right: 120px;
+}
+.login__input-item {
+  padding-left: 10px;
+  width: 300px;
+  height: 50px;
+  border: 1px solid grey;
+  box-shadow: 0.7px 0.9px #888888;
+  border-radius: 8px;
+}
+.login__input-item:hover {
+  border: 1px solid #61D5DF;
+}
+.login__main-span {
+  font-size: 14px;
+  color: grey;
+}
+.login__logo-media {
+  height: 35px;
+  flex: 1;
+  padding-top: 5px;
+}
+.login__social-media--wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
 
 @media  screen  and (max-width: 1000px){
   .body__nav {

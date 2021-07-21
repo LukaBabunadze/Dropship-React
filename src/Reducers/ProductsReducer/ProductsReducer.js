@@ -10,23 +10,27 @@ const ProductReducer = (state = initialState, action) => {
                 ...state,
                 productList: action.payload
             };
-
-        case "HIGH_TO_LOW":
+        case "PRODUCT_SEARCHED":
             return {
                 ...state,
                 productList: action.payload
             };
-        case "LOW_TO_HIGH":
+        case "PRODUCTS_SORTED":
             return {
-              ...state,
-              productList: action.payload
-            };
-        case "A_TO_Z":
+                ...state,
+                productList: action.payload
+            }
+        case "PRODUCTS_CHECKED":
             return {
                 ...state,
                 productList: action.payload
             };
-        case "Z_TO_A":
+        case "CLEAR_ALL":
+            return {
+                ...state,
+                productList: action.payload
+            };
+        case "SELECT_ALL":
             return {
                 ...state,
                 productList: action.payload

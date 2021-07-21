@@ -3,6 +3,11 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useEffect, useState} from "react";
 import {Switch,Route, useHistory} from "react-router-dom";
 import {login} from "../Common/API";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import logo from "../Icons/logo.png";
+import facebook from "../Icons/facebook.png";
+import google from "../Icons/google.png"
 
 
 const useStyles = makeStyles({
@@ -10,29 +15,40 @@ const useStyles = makeStyles({
         height: 500,
         width: 450,
         textAlign: "center",
-        marginTop: 30,
+        marginTop: 20,
     },
     inputs: {
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        gap: 60,
+        gap: 30,
         alignText: "center",
-        marginRight: 70,
-        marginTop: 40,
+        marginBottom: 0,
+        marginTop: 20,
+        marginLeft: "auto",
+        marginRight: "auto",
     },
-    inputItem: {
+    button: {
         width: 300,
         height: 50,
-        border: "1px solid grey",
         boxShadow: "none",
-        paddingLeft: 30,
         borderRadius: 8,
+        marginBottom: 0,
+        marginTop: 0,
+        marginLeft: "auto",
+        marginRight: "auto",
+        backgroundColor: "#70D9E2",
     }
 });
+
+const Alert = (props) => {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const Login = () => {
 
     const [email, setEmail] = useState("");
+    const [open, setOpen] = useState(false);
     const [password, setPassword] = useState("");
 
     const history = useHistory();
@@ -48,7 +64,7 @@ const Login = () => {
                 loginSuccess();
             })
             .catch(res => {
-                alert("Email or Password is incorrect")
+                setOpen(true);
             });
     };
 
@@ -60,39 +76,71 @@ const Login = () => {
         // }
     }, [])
 
+    const handleOpen = () => {
+        setOpen(true)
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setOpen(false)
+    }
+
+
     return(
         <Switch>
             <Route path="/login">
                 <Dialog  open={true}>
                     <div className={classes.root}>
-                        <DialogTitle>
-                            Members Log In
-                        </DialogTitle>
+                        <div className="login__header">
+                            <DialogContent><img className="login__logo" src={logo}/></DialogContent>
+                            <DialogTitle className="login__header-title">
+                                Members Log In
+                            </DialogTitle>
+                        </div>
                         <DialogActions>
                             <form className={classes.inputs} onSubmit={performLogin}>
-                                <Input
+                                <input
                                     type="text"
                                     placeholder="email"
                                     value={email}
-                                    className={classes.inputItem}
+                                    className="login__input-item"
                                     onChange={(e)=>{setEmail(e.target.value)}}
                                 />
-                                <Input
+                                <input
                                     type="password"
                                     placeholder="password"
                                     value={password}
-                                    className={classes.inputItem}
+                                    className="login__input-item"
                                     onChange={(e) => {setPassword(e.target.value)}}
                                 />
-                                <Input
-                                    placeholder="Log In"
+                                <span className="login__main-span">Forgot Password?</span>
+                                <Button
                                     type="submit"
-                                    className={classes.inputItem}
-                                />
+                                    className={classes.button}
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    Submit
+                                </Button>
                             </form>
                         </DialogActions>
                         <DialogContent>
-                            <p>Or Log In With</p>
+                            <div className="login__item--wrapper">
+                                <span className="login__item-line"></span>
+                                <p>Or Log In With</p>
+                                <span className="login__item-line"></span>
+                            </div>
+                            <div className="login__social-media--wrapper">
+                                <span><img className="login__logo-media" src={facebook}/></span>
+                                <span><img className="login__logo-media" src={google}/></span>
+                            </div>
+                            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="error">
+                                    Email or Password is Incorrect!
+                                </Alert>
+                            </Snackbar>
                         </DialogContent>
                     </div>
                 </Dialog>

@@ -1,22 +1,50 @@
 import {useEffect, useState} from "react";
-import {useHistory, useParams} from "react-router-dom";
+import {Route, Switch, useHistory, useParams} from "react-router-dom";
 import {getProduct, updateProduct, addProduct} from "../Common/API";
 import {Formik, Form, Field, ErrorMessage} from "formik"
-import {Button} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogTitle} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import * as yup from "yup"
 
 const useStyles = makeStyles({
+    main: {
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
 
+    },
     form: {
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "flex-start",
+        gap: 20,
+    },
+    inputs: {
+        borderBlockEndStyle: "none",
+        borderBlockStartStyle: "none",
+        borderStyle: "none",
+        m: 1,
+        border: 1,
+        width: 330,
+        height: 30,
+        borderRadius: 8,
+    },
+    title: {
+        width: 350,
+        height: 50,
+        display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
-    inputs: {
-        width: 330,
-        height: 30,
+    content: {
+        width: 350,
+        height: 300,
+    },
+    button: {
+        display: "block",
+        alignSelf: "center",
+        marginTop: 20,
     }
 });
 
@@ -58,65 +86,70 @@ const AddProduct = () => {
     };
 
     return (
-        <>
-            <p>{productId ? "Edit" : "Add"} product </p>
-            <Formik
-                enableReinitialize
-                initialValues={productId ? {
-                        title: product.title,
-                        description: product.description,
-                        price: product.price,
-                        imageUrl: product.imageUrl,
+        <div  className={classes.main}>
+            <Dialog open={true}>
+                <DialogTitle className={classes.title}>
+                    {productId ? "Edit" : "Add"} product
+                </DialogTitle>
+                <DialogActions className={classes.content}>
+                    <Formik
+                        enableReinitialize
+                        initialValues={productId ? {
+                                title: product.title,
+                                description: product.description,
+                                price: product.price,
+                                imageUrl: product.imageUrl,
 
-                    }
-                    :
-                    {
-                        title: "",
-                        description: "",
-                        price: "",
-                        imageUrl: "",
-                    }
-                }
-                onSubmit={handleSubmit}
-                // validationSchema={addProductValidation}
-            >
-                <Form className={classes.form}>
-                    <Field
-                        placeholder="Title"
-                        name="title"
-                        className={classes.inputs}
-                    />
-                    <ErrorMessage name="title" component="div"/>
-                    <Field
-                        placeholder="Description"
-                        component="textarea"
-                        name="description"
-                        className={classes.inputs}
-                    />
-                    <ErrorMessage name="description" component="div"/>
-                    <Field
-                        placeholder="Price"
-                        name="price"
-                        className={classes.inputs}
-                    />
-                    <ErrorMessage name="price" component="div"/>
-                    <Field
-                        placeholder="Image URL"
-                        name="imageUrl"
-                        className={classes.inputs}
-                    />
-                    <ErrorMessage name="imageUrl" component="div"/>
-                    <Button
-                        type="submit"
-                        color={"primary"}
-                        variant={"contained"}
+                            }
+                            :
+                            {
+                                title: "",
+                                description: "",
+                                price: "",
+                                imageUrl: "",
+                            }
+                        }
+                        onSubmit={handleSubmit}
+                        // validationSchema={addProductValidation}
                     >
-                        Submit
-                    </Button>
-                </Form>
-
-            </Formik>
-        </>
+                        <Form className={classes.form}>
+                            <Field
+                                placeholder="Title"
+                                name="title"
+                                className={classes.inputs}
+                            />
+                            <ErrorMessage name="title" component="div"/>
+                            <Field
+                                placeholder="Description"
+                                name="description"
+                                className={classes.inputs}
+                            />
+                            <ErrorMessage name="description" component="div"/>
+                            <Field
+                                placeholder="Price"
+                                name="price"
+                                className={classes.inputs}
+                            />
+                            <ErrorMessage name="price" component="div"/>
+                            <Field
+                                placeholder="Image URL"
+                                name="imageUrl"
+                                className={classes.inputs}
+                            />
+                            <ErrorMessage name="imageUrl" component="div"/>
+                            <Button
+                                type="submit"
+                                color={"primary"}
+                                variant={"contained"}
+                                className={classes.button}
+                            >
+                                Submit
+                            </Button>
+                        </Form>
+                    </Formik>
+                </DialogActions>
+            </Dialog>
+        </div>
     )
 
 };

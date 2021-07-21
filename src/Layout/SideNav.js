@@ -22,7 +22,7 @@ const SideNav = () => {
             <nav className="body__nav">
                 <div className="body__nav-image">
                     <Link to="/dashboard"><NavLinks firstClass="body__nav-icons body__nav-logo" source={logo}/></Link>
-                    <Link to="/product"><NavLinks firstClass="body__nav-icons body__nav-profile" source={unknown}/></Link>
+                    <NavLinks firstClass="body__nav-icons body__nav-profile" source={unknown}/>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={speed}/>
                     <Link to="/catalog"><NavLinks firstClass="body__nav-icons body__nav--photos" source={wamowolilebi}/></Link>
                     <NavLinks firstClass="body__nav-icons body__nav--photos" source={kuti}/>

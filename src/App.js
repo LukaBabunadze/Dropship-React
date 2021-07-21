@@ -8,29 +8,35 @@ import AddProduct from "./Authorization/AddProduct";
 import Counter from "./Reducers/CounterReducer/Counter";
 import Plus from "./Reducers/CounterReducer/Plus";
 import Minus from "./Reducers/CounterReducer/Minus";
-import FirstPage from "./Layout/FirstPage";
+import LandingPage from "./Layout/LandingPage";
 import SignUp from "./Authorization/SignUp";
 import CartSingleProduct from "./Authorization/CartSingleProduct";
+import Categories from "./Layout/Categories";
 
 function App() {
   return (
       <>
         <Switch>
           <Route exact path="/">
-            <FirstPage />
+            <LandingPage />
           </Route>
           <Route path="/login">
             <Login/>
-            <FirstPage />
+            <LandingPage />
           </Route>
           <Route path="/registration">
-            <FirstPage/>
+            <LandingPage/>
             <SignUp/>
           </Route>
-          <Route excat path="/cartsingleproduct">
-            <CartSingleProduct/>
+          <Route excat path="/cart">
+            <SideNav/>
+            <Cart />
           </Route>
-          <Route exact path="/:catalog?/:dashboard?">
+          <Route exact path="/product/:productId?">
+            <SideNav/>
+            <Catalog/>
+            <AddProduct />
+          </Route>
             <div className="App">
               <body id="body">
               <div className="body__section">
@@ -40,12 +46,6 @@ function App() {
                     <Switch>
                       <Route exact path="/catalog/:id?">
                         <Catalog/>
-                      </Route>
-                      <Route excat path="/cart">
-                        <Cart />
-                      </Route>
-                      <Route exact path="/product/:productId?">
-                        <AddProduct />
                       </Route>
                       <Route exact path="/counter">
                         <Counter />
@@ -58,7 +58,6 @@ function App() {
               </div>
               </body>
             </div>
-          </Route>
         </Switch>
       </>
   );

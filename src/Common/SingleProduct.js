@@ -60,7 +60,7 @@ const SingleProduct = ({
                         variant="contained"
                         color="primary"
                         className={classes.button}
-                        onClick={(e) => addToCart(productId, count)}
+                        onClick={() => addToCart(productId, count)}
                     >
                         Add To Inventory
                     </Button>

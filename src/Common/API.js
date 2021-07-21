@@ -13,7 +13,7 @@ export const login = async(email, password) => {
         const results = await axios.post(SERVER_URL + "login", {email, password});
         localStorage.setItem("user", JSON.stringify(results.data.data));
         localStorage.setItem("token", results.data.data.token)
-    }catch (err) {
+    } catch (err) {
         throw new Error(err);
     }
 };
@@ -47,8 +47,11 @@ export const getProduct = async (id) => {
 };
 
 export const deleteCartItem = async (itemId) => {
-    const results = await axios.post(SERVER_URL_V1 + `cart/remove/${itemId}`);
-    return results.data.data;
+    try {const results = await axios.post(SERVER_URL_V1 + `cart/remove/${itemId}`);
+        return results.data.data;
+    } catch (err) {
+        throw new Error(err)
+    }
 };
 
 export const updateProduct = async (id, values) => {

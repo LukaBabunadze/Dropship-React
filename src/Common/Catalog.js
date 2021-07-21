@@ -1,18 +1,17 @@
 import React from "react";
 import {useEffect, useState} from "react";
 import SingleProduct from "./SingleProduct";
-import searchicon from "../Icons/searchicon.png"
-import Buttons from "./Buttons";
-import axios from "axios";
 import SortHtml from "./SortHtml";
 import Modal from "./Modal"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
-import {makeStyles} from "@material-ui/core/styles"
 import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
 import {products as productsAPI} from "./API";
 import {useDispatch, useSelector} from "react-redux";
-import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import Header from "../Layout/Header";
+import {Button, Snackbar} from "@material-ui/core";
+import {Alert} from "@material-ui/lab";
+import {login} from "./API";
 
 
 const Catalog = () => {
@@ -21,6 +20,7 @@ const Catalog = () => {
     const dispatch = useDispatch();
 
     const [inputText, setInputText] = useState('search...');
+    const [open, setOpen] = useState(false);
     const [sortType, setSortType] = useState();
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -38,7 +38,7 @@ const Catalog = () => {
             const sortProperty = types[type];
             if (type === "highToLow") {
                 dispatch({
-                    type: "HIGH_TO_LOW",
+                    type: "PRODUCTS_SORTED",
                     payload: [...productList].sort((a, b) => {
                             return (b[sortProperty] - a[sortProperty]);
                         }
@@ -46,14 +46,14 @@ const Catalog = () => {
                 })
             } else if (type === "lowToHigh") {
                 dispatch({
-                    type: "LOW_TO_HIGH",
+                    type: "PRODUCTS_SORTED",
                     payload: [...productList].sort((a, b) => {
                         return (a[sortProperty] - b[sortProperty])
                     })
                 })
             } else if (type === "aToZ") {
                 dispatch({
-                    type: "A_TO_Z",
+                    type: "PRODUCTS_SORTED",
                     payload: [...productList].sort((a, b) => {
                         if((b[sortProperty] > a[sortProperty])){
                             return -1;
@@ -62,7 +62,7 @@ const Catalog = () => {
                 })
             } else if (type === "zToA") {
                 dispatch({
-                    type: "Z_TO_A",
+                    type: "PRODUCTS_SORTED",
                     payload: [...productList].sort((a, b) => {
                         if((a[sortProperty] > b[sortProperty])) {
                             return -1;
@@ -107,9 +107,8 @@ const Catalog = () => {
     const searchedProducts = () => {
         dispatch({
             type: "PRODUCT_SEARCHED",
-            payload: productList.filter(item => item.title.toLowerCase().includes(inputText.toLowerCase()))
+            payload: JSON.parse(localStorage.getItem("products")).filter(item => item.title.toLowerCase().includes(inputText.toLowerCase()))
         });
-        // setProducts(products.filter(item => item.title.toLowerCase().includes(inputText.toLowerCase())));
     }
 
 
@@ -117,40 +116,48 @@ const Catalog = () => {
 
 
     // *** Select All / Clear All ***
+    const handleCheckProduct = (productId) => {
+        const checkedProducts = productList.map(product =>
+            product.id === productId
+                ? {...product, isChecked: !product.isChecked}
+                : product
+        );
+        dispatch({
+            type: "PRODUCTS_CHECKED",
+            payload: checkedProducts,
+        })
+    };
 
-    // const handleCheckProduct = (productId) => {
-    //     const checkedProducts = products.map(product =>
-    //         product.id === productId
-    //             ? {...product, isChecked: !product.isChecked}
-    //             : product
-    //     );
-    //     setProducts(checkedProducts);
-    //
-    // };
-    //
-    // useEffect(() => {
-    //     setSelectedProducts(products.filter((product) => product.isChecked));
-    // }, [products])
-    //
-    //
-    // const handleClearAll = () => {
-    //     setProducts(products.map((product) => ({...product, isChecked: false})))
-    // }
-    //
-    // const handleSelectAll = () => {
-    //     setProducts(products.map((product) => ({...product, isChecked: true})))
-    // };
+    useEffect(() => {
+        setSelectedProducts(productList.filter((product) => product.isChecked));
+    }, [productList])
 
 
+    const handleClearAll = () => {
+        dispatch({
+            type: "CLEAR_ALL",
+            payload: JSON.parse(localStorage.getItem("products")).map((product) => ({...product, isChecked: false})),
+        })
+    }
 
+    const handleSelectAll = () => {
+        dispatch({
+            type: "SELECT_ALL",
+            payload: JSON.parse(localStorage.getItem("products")).map((product) => ({...product, isChecked: true})),
+        })
+    };
 
-    // *** Material-Ui ***
-    const useStyles = makeStyles( ({
-        root: {
-            flexGrow: 1,
-        },
-    }));
+    // *** Success Message ***
+    useEffect(() => {
+        setOpen(true);
+    }, [login])
 
+    const handleClose = (e, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        setOpen(false);
+    }
 
     // *** Modal Id ***
 
@@ -161,55 +168,19 @@ const Catalog = () => {
     return (
 
         <div>
-            <nav className="main__nav">
-                <div>
-                    <Buttons
-                        classname="header__button-inventory header__button--selector"
-                        name="SELECT ALL"
-                        // handleSelectAll={handleSelectAll}
-                    />
-                    <span className="header__span">
-                        {`selected ${selectedProducts.length} out of ${productList.length} products`}
-                    </span>
-                    {selectedProducts.length > 0 ?
-                        <Buttons
-                            classname="header__button-inventory header__button--selector"
-                            name="CLEAR SELECTED"
-                            // handleClearAll={handleClearAll}
-                        />
-                        :
-                        ""
-                    }
-                </div>
-
-                <div className="main__nav-search-bar">
-                    <input
-                        type="text"
-                        className="search-bar"
-                        placeholder={inputText}
-                        id="searchQuery"
-                        onChange={changeInput}
-                    />
-                    <button
-                        id="searchButton"
-                        onClick={searchedProducts}
-                    >
-                        <img src={searchicon}/>
-                    </button>
-                    <Buttons
-                        classname="header__button-inventory"
-                        name="ADD TO INVENTORY"
-                    />
-                </div>
-
-            </nav>
-
+            <Header
+                handleSelectAll={handleSelectAll}
+                selectedProducts={selectedProducts}
+                productList={productList}
+                handleClearAll={handleClearAll}
+                inputText={inputText}
+                changeInput={changeInput}
+                searchedProducts={searchedProducts}
+            />
             <div className="main__nav-sort">
                 <p>Sort By:</p>
                 <SortHtml setSortType={setSortType}/>
             </div>
-
-
             <section className="main__catalog">
                 <Grid container spacing={2}>
                     {
@@ -234,7 +205,7 @@ const Catalog = () => {
                                                 price={singleProduct.price}
                                                 title={singleProduct.title}
                                                 isChecked={singleProduct.isChecked}
-                                                // handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
+                                                handleCheckProduct={() => handleCheckProduct(singleProduct.id)}
                                             />
 
                                         </Paper>
@@ -248,6 +219,11 @@ const Catalog = () => {
                 </Grid>
             </section>
             <Modal  isOpen={id} />
+            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    This is a success message!
+                </Alert>
+            </Snackbar>
         </div>
 
     );
