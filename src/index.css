@@ -543,7 +543,7 @@ price__item-Rrp {
   justify-content: space-around;
 }
 .login__item-line {
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #61dafb;
   width: 120px;
 }
 .login__logo {
@@ -583,6 +583,56 @@ price__item-Rrp {
   justify-content: space-around;
 }
 
+/*Sign Up*/
+.signup__header {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-items: flex-start;
+  margin-right: 140px;
+}
+
+.signup__item-input {
+  width: 250px;
+  height: 30px;
+  border: 1px solid grey;
+  box-shadow: 0.7px 0.9px #888888;
+  padding-left: 32px;
+  border-radius: 8px;
+}
+
+.signup__item-input:hover {
+  border: 1px solid #61dafb;
+}
+.signup--button {
+  height: 40px;
+  width: 200px;
+  font-size: 16px;
+  padding-top: 30px;
+  background-color: #61dafb;
+}
+.signup__logo-media {
+  height: 40px;
+  flex: 1;
+  padding-top: 12px;
+}
+.signup-icons {
+  position: absolute;
+  padding-top: 4px;
+  padding-left: 4px;
+}
+
+/*SingleProduct*/
+.single-product__delete-icon {
+  position: absolute;
+  margin-left: 230px;
+  margin-top: 135px;
+}
+.single-product__edit-icon {
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 135px;
+}
 @media  screen  and (max-width: 1000px){
   .body__nav {
     display: none;

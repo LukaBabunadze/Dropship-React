@@ -149,8 +149,8 @@ const Catalog = () => {
 
     // *** Success Message ***
     useEffect(() => {
-        setOpen(true);
-    }, [login])
+        setOpen(true)
+    }, [])
 
     const handleClose = (e, reason) => {
         if (reason === "clickaway") {
@@ -162,7 +162,6 @@ const Catalog = () => {
     // *** Modal Id ***
 
     const {id} = useParams();
-
 
 
     return (
@@ -219,9 +218,9 @@ const Catalog = () => {
                 </Grid>
             </section>
             <Modal  isOpen={id} />
-            <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success">
-                    This is a success message!
+            <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" elevation={6} variant="filled">
+                    Log In Successful
                 </Alert>
             </Snackbar>
         </div>

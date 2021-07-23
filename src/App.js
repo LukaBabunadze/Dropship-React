@@ -10,8 +10,6 @@ import Plus from "./Reducers/CounterReducer/Plus";
 import Minus from "./Reducers/CounterReducer/Minus";
 import LandingPage from "./Layout/LandingPage";
 import SignUp from "./Authorization/SignUp";
-import CartSingleProduct from "./Authorization/CartSingleProduct";
-import Categories from "./Layout/Categories";
 
 function App() {
   return (

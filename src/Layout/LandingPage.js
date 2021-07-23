@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         fontSize: 14,
     },
     button: {
-        color: "#53B8CB"
+        color: "#53B8CB",
     },
     dropship: {
         paddingLeft: 6,

@@ -3,7 +3,14 @@ import {Dialog, DialogActions, DialogContent, DialogTitle, Input, Button} from "
 import {makeStyles} from "@material-ui/core/styles";
 import {registration, userRegistration} from "../Common/API";
 import {useHistory} from "react-router-dom";
-
+import logo from "../Icons/logo.png";
+import facebook from "../Icons/facebook.png";
+import google from "../Icons/google.png";
+import {AccountCircle, DeleteOutlined} from "@material-ui/icons";
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 const useStyle = makeStyles({
     root: {
         height: 600,
@@ -15,19 +22,18 @@ const useStyle = makeStyles({
         display: "flex",
         flexDirection: "column",
         flexWrap: "wrap",
-        gap: 30,
+        gap: 20,
         alignItems: "center",
         justifyContent: "center",
         marginRight: 70,
         marginTop: 40,
     },
-    inputItem: {
-        width: 250,
-        height: 30,
-        border: "1px solid grey",
-        boxShadow: "none",
-        paddingLeft: 30,
-        borderRadius: 8,
+    button: {
+        height: 40,
+        width: 200,
+        fontSize: 16,
+        marginTop: 14,
+        backgroundColor: "#61dafb",
     }
 });
 
@@ -48,10 +54,13 @@ const SignUp = () => {
     return(
                <Dialog  open={true}>
                    <div className={classes.root}>
-                       <DialogTitle>
-                           Register Here
-                       </DialogTitle>
-                       <DialogActions className={classes.inputs}>
+                       <div className="signup__header">
+                           <DialogContent><img className="login__logo" src={logo}/></DialogContent>
+                           <DialogTitle>
+                               Register Here
+                           </DialogTitle>
+                       </div>
+                       <DialogActions>
                            <Formik
                                enableReinitialize
                                initialValues={{
@@ -64,49 +73,82 @@ const SignUp = () => {
                                }
                                onSubmit={handleSubmit}
                            >
-                               <Form>
-                                   <Field
+                               <Form className={classes.inputs}>
+                                   <div>
+                                       <AccountCircleIcon
+                                           className="signup-icons"
+                                       />
+                                       <Field
 
-                                       placeholder="First Name"
-                                       name="firstName"
-                                       className={classes.inputItem}
-                                   />
-                                   <Field
+                                           placeholder="First Name"
+                                           name="firstName"
+                                           className="signup__item-input"
+                                       />
+                                   </div>
+                                   <div>
+                                       <AccountCircleIcon
+                                           className="signup-icons"
+                                       />
+                                       <Field
+                                           placeholder="Last Name"
+                                           name="lastname"
+                                           className="signup__item-input"
+                                       />
+                                   </div>
+                                   <div>
+                                       <MailOutlineOutlinedIcon
+                                           className="signup-icons"
+                                       />
+                                       <Field
 
-                                       placeholder="Last Name"
-                                       name="lastName"
-                                       className={classes.inputItem}
-                                   />
-                                   <Field
-
-                                       placeholder="Email"
-                                       name="email"
-                                       className={classes.inputItem}
-                                   />
-                                   <Field
-
-                                       placeholder="Password"
-                                       name="password"
-                                       className={classes.inputItem}
-                                   />
-                                   <Field
-
-                                       placeholder="Password Confirmation"
-                                       name="passwordConfirmation"
-                                       className={classes.inputItem}
-                                   />
-                                   <Button
-                                       type="submit"
-                                       color={"primary"}
-                                       variant={"contained"}
-                                   >
-                                       Submit
-                                   </Button>
+                                           placeholder="Email"
+                                           name="email"
+                                           className="signup__item-input"
+                                       />
+                                   </div>
+                                   <div>
+                                       <LockOutlinedIcon
+                                           className="signup-icons"
+                                       />
+                                       <Field
+                                           type="password"
+                                           placeholder="Password"
+                                           name="password"
+                                           className="signup__item-input"
+                                       />
+                                   </div>
+                                   <div>
+                                       <LockOutlinedIcon
+                                           className="signup-icons"
+                                       />
+                                       <Field
+                                           type="password"
+                                           placeholder="Password Confirmation"
+                                           name="passwordConfirmation"
+                                           className="signup__item-input"
+                                       />
+                                   </div>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        className={classes.button}
+                                        color="primary"
+                                    >
+                                        SUBMIT
+                                    </Button>
                                 </Form>
                            </Formik>
                        </DialogActions>
                        <DialogContent>
-                           <p>Or Register With</p>
+                           <div className="login__item--wrapper">
+                               <span className="login__item-line"></span>
+                               <p>Or Register With</p>
+                               <span className="login__item-line"></span>
+                           </div>
+                           <div className="login__social-media--wrapper">
+                               <span><img className="signup__logo-media" src={facebook}/></span>
+                               <span><img className="signup__logo-media" src={google}/></span>
+                           </div>
                        </DialogContent>
                    </div>
                </Dialog>

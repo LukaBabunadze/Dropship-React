@@ -69,3 +69,8 @@ export const userRegistration = async (values) => {
     return results.data.data;
 };
 
+export const deleteProduct = async(id) => {
+    const results = await axios.delete(SERVER_URL_V1 + `products/${id}`);
+    return results.data.data
+}
+

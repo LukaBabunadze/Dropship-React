@@ -4,11 +4,11 @@ import React, {useState} from "react";
 import {Button} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {addToCart, deleteCartItem} from "./API";
-import Counter from "../Reducers/CounterReducer/Counter";
-import Plus from "../Reducers/CounterReducer/Plus";
-import Minus from "../Reducers/CounterReducer/Minus";
 import {useDispatch, useSelector} from "react-redux";
-
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import {deleteProduct, updateProduct} from "./API";
+import {useHistory} from "react-router-dom";
 
 const useStyles = makeStyles({
     button: {
@@ -46,7 +46,11 @@ const SingleProduct = ({
 
     const classes = useStyles();
     const count = useSelector(state => state.counter.clickCount);
+    const history = useHistory();
 
+    const handleEditProduct = (id) => {
+        history.push(`product/${id}`)
+    }
 
     return (
             <div
@@ -55,27 +59,25 @@ const SingleProduct = ({
                 key={productId}
                 className="catalog__item"
             >
-                    <Button
-                        style={style}
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        onClick={() => addToCart(productId, count)}
-                    >
-                        Add To Inventory
-                    </Button>
-                {
-                    qty &&
-                        <Button
-                            style={style}
-                            className={classes.deleteButton}
-                            variant="contained"
-                            color="primary"
-                            onClick={() => deleteCartItem(productId)}
-                        >
-                            Delete From Cart
-                        </Button>
-                }
+                <Button
+                    style={style}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => addToCart(productId, count)}
+                >
+                    Add To Inventory
+                </Button>
+                <DeleteOutlineOutlinedIcon
+                    style={style}
+                    className="single-product__delete-icon"
+                    onClick={() => deleteProduct(productId)}
+                />
+                <EditOutlinedIcon
+                    style={style}
+                    className="single-product__edit-icon"
+                    // onClick={() => handleEditProduct(productId)}
+                />
                 <Checkbox
                     isChecked={isChecked}
                     handleCheckProduct={handleCheckProduct}

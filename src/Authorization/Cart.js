@@ -18,6 +18,9 @@ import {TextField} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
+import Snackbar from "@material-ui/core/Snackbar";
+import {Alert} from "@material-ui/lab";
+
 
 
 const useStyles = makeStyles({
@@ -75,7 +78,8 @@ const Cart = () => {
     const classes = useStyles();
     const count = useSelector(state => state.counter.clickCount)
     const [cartData, setCartData] = useState([]);
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(1);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         cart()
@@ -91,9 +95,20 @@ const Cart = () => {
     const handleDecreaseQty = () => {
         setQuantity(quantity - 1);
     };
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway"){
+            return;
+        }
+        setOpen(false)
+    }
 
     return(
         <div className={classes.wrapper}>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" elevation={6} variant="filled">
+                    Product Deleted
+                </Alert>
+            </Snackbar>
             <h2 className="cart__header">SHOPPING CART (1)</h2>
             <TableContainer component={Paper} className={classes.container}>
                 <Table className={classes.table} aria-label="simple table">
@@ -135,7 +150,7 @@ const Cart = () => {
                                             <RemoveIcon className={classes.icons}/>
                                         </TableCell>
                                     </TableCell>
-                                    <TableCell align="center" onClick={() => deleteCartItem(item.id)}>
+                                    <TableCell align="center" onClick={() => deleteCartItem(item.id) && setOpen(true)}>
                                         <RemoveShoppingCartOutlinedIcon/>
                                     </TableCell>
                                 </TableRow>
