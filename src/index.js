@@ -9,10 +9,12 @@ import {combineReducers, createStore} from "redux";
 import CounterReducer from "./Reducers/CounterReducer/CounterReducer";
 import ProductReducer from "./Reducers/ProductsReducer/ProductsReducer";
 import SearchReducer from "./Reducers/SearchReducer/SearchReducer";
+import CartReducer from "./Reducers/CartCounter/CartReducer";
 
 const reducers = combineReducers({
     counter: CounterReducer,
     products: ProductReducer,
+    cart: CartReducer,
     // search: SearchReducer
 })
 

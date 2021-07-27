@@ -8,6 +8,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import logo from "../Icons/logo.png";
 import facebook from "../Icons/facebook.png";
 import google from "../Icons/google.png"
+import MailOutlineOutlinedIcon from "@material-ui/icons/MailOutlineOutlined";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 
 const useStyles = makeStyles({
@@ -101,20 +103,26 @@ const Login = () => {
                         </div>
                         <DialogActions>
                             <form className={classes.inputs} onSubmit={performLogin}>
-                                <input
-                                    type="text"
-                                    placeholder="email"
-                                    value={email}
-                                    className="login__input-item"
-                                    onChange={(e)=>{setEmail(e.target.value)}}
-                                />
-                                <input
-                                    type="password"
-                                    placeholder="password"
-                                    value={password}
-                                    className="login__input-item"
-                                    onChange={(e) => {setPassword(e.target.value)}}
-                                />
+                                <div>
+                                    <MailOutlineOutlinedIcon className="login-icons" />
+                                    <input
+                                        type="text"
+                                        placeholder="email"
+                                        value={email}
+                                        className="login__input-item"
+                                        onChange={(e)=>{setEmail(e.target.value)}}
+                                    />
+                                </div>
+                                <div>
+                                    <LockOutlinedIcon className="login-icons"/>
+                                    <input
+                                        type="password"
+                                        placeholder="password"
+                                        value={password}
+                                        className="login__input-item"
+                                        onChange={(e) => {setPassword(e.target.value)}}
+                                    />
+                                </div>
                                 <span className="login__main-span">Forgot Password?</span>
                                 <Button
                                     type="submit"

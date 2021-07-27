@@ -10,6 +10,7 @@ import Plus from "./Reducers/CounterReducer/Plus";
 import Minus from "./Reducers/CounterReducer/Minus";
 import LandingPage from "./Layout/LandingPage";
 import SignUp from "./Authorization/SignUp";
+import Profile from "./Layout/Profile";
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route excat path="/cart">
             <SideNav/>
             <Cart />
+          </Route>
+          <Route excat path="/profile">
+            <SideNav/>
+            <Profile/>
           </Route>
           <Route exact path="/product/:productId?">
             <SideNav/>

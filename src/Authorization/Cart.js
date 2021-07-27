@@ -13,7 +13,7 @@ import {
     Icon,
     Paper, Input,
 } from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TextField} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -76,17 +76,19 @@ const useStyles = makeStyles({
 const Cart = () => {
 
     const classes = useStyles();
-    const count = useSelector(state => state.counter.clickCount)
-    const [cartData, setCartData] = useState([]);
+    const dispatch = useDispatch();
+    const cartProducts = useSelector(state => state.cart.cartProducts)
     const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         cart()
             .then(res => {
-            setCartData(res);
-            console.log(cartData)
-        })
+                dispatch({
+                    type: "PRODUCTS_ARRIVED",
+                    payload: res
+                });
+            })
     }, []);
 
     const handleIncreaseQty = () => {
@@ -124,8 +126,8 @@ const Cart = () => {
                     </TableHead>
                     <TableBody>
                         {
-                            cartData.cartItem &&
-                            cartData.cartItem.items.map(item => (
+                            cartProducts.cartItem &&
+                            cartProducts.cartItem.items.map(item => (
                                 <TableRow key={item.id}>
                                     <TableCell component="th" scope="row">
                                         <img className={classes.img} src={item.image}/>
@@ -136,16 +138,18 @@ const Cart = () => {
                                     <TableCell key={item.id} className={classes.plusAndMinus}>
                                         <TableCell
                                             className={classes.plusAndMinusTableCell}
-                                            onClick={handleIncreaseQty}
+                                            key={item.id}
+                                            // onClick={handleIncreaseQty}
                                         >
                                             <AddIcon className={classes.icons}/>
                                         </TableCell>
-                                        <TableCell className={classes.plusAndMinusTableCell}>{quantity}</TableCell>
+                                        <TableCell className={classes.plusAndMinusTableCell}>{item.qty}</TableCell>
                                         <TableCell
                                             className={classes.plusAndMinusTableCell}
-                                            onClick={() => {
-                                                quantity > 1 ? handleDecreaseQty() : setQuantity(1);
-                                            }}
+                                            key={item.id}
+                                            // onClick={() => {
+                                            //     quantity > 1 ? handleDecreaseQty() : setQuantity(1);
+                                            // }}
                                         >
                                             <RemoveIcon className={classes.icons}/>
                                         </TableCell>
