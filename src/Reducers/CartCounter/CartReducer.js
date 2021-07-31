@@ -8,6 +8,11 @@ const CartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cartProducts: action.payload
+            };
+        case "CART_UPDATED":
+            return {
+                ...state,
+                cartProducts: action.payload
             }
         default:
             return state;

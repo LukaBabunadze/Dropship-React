@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flexDirection:"column",
         backgroundColor: "#2B2C41",
-        opacity: 0.95,
+        opacity: 0.75,
         width: "auto",
     },
     title: {
@@ -35,11 +35,12 @@ const useStyles = makeStyles(theme => ({
         fontSize: 14,
     },
     button: {
-        color: "#53B8CB",
+        color: "#4FC3C9",
+        whiteSpace: "nowrap",
     },
     dropship: {
         paddingLeft: 6,
-        color: "#53B8CB"
+        color: "#4FC3C9"
     }
 }));
 
@@ -58,7 +59,7 @@ const LandingPage = () => {
 
     return(
         <>
-            <div>
+            <div className="landing__page">
                 <AppBar position="static" className={classes.header}>
                     <Toolbar>
                         <IconButton
@@ -76,32 +77,32 @@ const LandingPage = () => {
                             <Typography
                                 className={classes.nav_item}
                             >
-                                ABOUT
+                                <b>ABOUT</b>
                             </Typography>
                             <Typography
                                 className={classes.nav_item}
                             >
-                                CATALOG
+                                <b>CATALOG</b>
                             </Typography>
                             <Typography
                                 className={classes.nav_item}
                             >
-                                PRICING
+                                <b>PRICING</b>
                             </Typography>
                             <Typography
                                 className={classes.nav_item}
                             >
-                                SUPPLIERS
+                                <b>SUPPLIERS</b>
                             </Typography>
                             <Typography
                                 className={classes.nav_item}
                             >
-                                HELP
+                                <b>HELP</b>
                             </Typography>
                             <Typography
                                 className={classes.nav_item}
                             >
-                                BLOG
+                                <b>BLOG</b>
                             </Typography>
                             <Link to="/registration">
                                 <Button
@@ -109,12 +110,12 @@ const LandingPage = () => {
                                     variant="outlined"
                                     color="primary"
                                 >
-                                    SIGNUPNOW
+                                    <b>SIGN UP NOW</b>
                                 </Button>
                             </Link>
                             <Link to="/login">
                                 <Button className={classes.button} >
-                                    LOGIN
+                                    <b>LOGIN</b>
                                 </Button>
                             </Link>
                         </nav>
@@ -124,7 +125,7 @@ const LandingPage = () => {
                     <span className="firstPage__main-text">
                         <p className="span__title-num">365</p>
                         <b><p className="span__title-name">DROPSHIP</p></b>
-                        <p className="span-slogan">WE GOT YOUR SUPPLY CHAIN COVERED<br/>365 DAYS A YEAR!
+                        <p className="span-slogan"><b>WE GOT YOUR SUPPLY CHAIN COVERED</b><br/><b>365 DAYS A YEAR!</b>
                         </p>
                     </span>
                     <Button

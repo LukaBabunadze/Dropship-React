@@ -9,11 +9,12 @@ import {
     TableHead,
     TableRow
 } from "@material-ui/core";
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import unknown from "../Icons/unknown.jpg"
 import {Label} from "@material-ui/icons";
+import {updateUsers} from "../Common/API";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,6 +46,13 @@ const useStyles = makeStyles((theme) => ({
 const Profile = () => {
 
     const classes = useStyles();
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        updateUsers().then(res => {
+            console.log(res)
+        })
+    }, [])
 
     return (
         <div className="paper__wrapper">
@@ -83,18 +91,19 @@ const Profile = () => {
                                 <Grid item xs={6} >
                                     <label className={classes.label}><b>CHANGE PASSWORD</b></label>
                                     <Paper className={classes.paper}>
-                                        {/*<div>*/}
-                                        {/*    <span>Current Password</span>*/}
-                                        {/*    <input type="text"/>*/}
-                                        {/*</div>*/}
-                                        {/*<div>*/}
-                                        {/*    <span>Current Password</span>*/}
-                                        {/*    <input type="text"/>*/}
-                                        {/*</div>*/}
-                                        {/*<div>*/}
-                                        {/*    <span>Current Password</span>*/}
-                                        {/*    <input type="text"/>*/}
-                                        {/*</div>*/}
+                                        <div>
+                                            <span>Current Password</span>
+                                            <input type="text"
+                                            />
+                                        </div>
+                                        <div>
+                                            <span>Current Password</span>
+                                            <input type="text"/>
+                                        </div>
+                                        <div>
+                                            <span>Current Password</span>
+                                            <input type="text"/>
+                                        </div>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={6}>

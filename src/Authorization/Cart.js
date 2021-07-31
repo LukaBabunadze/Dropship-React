@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {cart} from "../Common/API";
+import {cart, login, updateCart} from "../Common/API";
 import SingleProduct from "../Common/SingleProduct";
 import {deleteCartItem} from "../Common/API";
 import {
@@ -14,12 +14,13 @@ import {
     Paper, Input,
 } from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {TextField} from "@material-ui/core";
+import {TextField, Button} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
 import Snackbar from "@material-ui/core/Snackbar";
 import {Alert} from "@material-ui/lab";
+
 
 
 
@@ -62,13 +63,14 @@ const useStyles = makeStyles({
         display: "inline",
     },
     plusAndMinus: {
-        alignItems: "center",
+        alignItems: "right",
+
     },
     plusAndMinusTableCell: {
         borderBlockStyle: "none",
     },
     icons: {
-        fontSize: 10,
+        fontSize: 14,
         borderBlockStyle: "none",
     }
 });
@@ -78,7 +80,6 @@ const Cart = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const cartProducts = useSelector(state => state.cart.cartProducts)
-    const [quantity, setQuantity] = useState(1);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -91,11 +92,20 @@ const Cart = () => {
             })
     }, []);
 
-    const handleIncreaseQty = () => {
-        setQuantity(quantity + 1);
+    const handleIncreaseQty = (id, qty) => {
+        updateCart(id, qty + 1).then(res =>
+            dispatch({
+                type: "CART_UPDATED",
+                payload: res
+            }))
     };
-    const handleDecreaseQty = () => {
-        setQuantity(quantity - 1);
+    const handleDecreaseQty = (id, qty) => {
+        updateCart(id, qty - 1).then(res => {
+            dispatch({
+                type: "CART_UPDATED",
+                payload: res
+            });
+        })
     };
     const handleClose = (event, reason) => {
         if (reason === "clickaway"){
@@ -135,27 +145,34 @@ const Cart = () => {
                                     <TableCell align="left">{item.title}</TableCell>
                                     <TableCell align="left">{item.description}</TableCell>
                                     <TableCell align="left">{item.price}$</TableCell>
-                                    <TableCell key={item.id} className={classes.plusAndMinus}>
+                                    <TableCell className={classes.plusAndMinus} align="right">
                                         <TableCell
                                             className={classes.plusAndMinusTableCell}
-                                            key={item.id}
-                                            // onClick={handleIncreaseQty}
                                         >
-                                            <AddIcon className={classes.icons}/>
+                                            <Button
+                                                value="plus"
+                                                onClick={() => {handleIncreaseQty(item.id, item.qty)}}
+                                            >
+                                                <AddIcon className={classes.icons}/>
+                                            </Button>
                                         </TableCell>
                                         <TableCell className={classes.plusAndMinusTableCell}>{item.qty}</TableCell>
                                         <TableCell
                                             className={classes.plusAndMinusTableCell}
-                                            key={item.id}
-                                            // onClick={() => {
-                                            //     quantity > 1 ? handleDecreaseQty() : setQuantity(1);
-                                            // }}
                                         >
-                                            <RemoveIcon className={classes.icons}/>
+                                                <Button
+                                                    disabled={item.qty < 2}
+                                                    value="minus"
+                                                    onClick={() => {handleDecreaseQty(item.id, item.qty)}}
+                                                >
+                                                    <RemoveIcon className={classes.icons}/>
+                                                </Button>
                                         </TableCell>
                                     </TableCell>
-                                    <TableCell align="center" onClick={() => deleteCartItem(item.id) && setOpen(true)}>
-                                        <RemoveShoppingCartOutlinedIcon/>
+                                    <TableCell align="center" style={{paddingRight: 30}}>
+                                        <Button onClick={() => deleteCartItem(item.id) && setOpen(true)}>
+                                            <RemoveShoppingCartOutlinedIcon/>
+                                        </Button>
                                     </TableCell>
                                 </TableRow>
                             )

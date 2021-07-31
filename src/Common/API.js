@@ -74,3 +74,12 @@ export const deleteProduct = async(id) => {
     return results.data.data
 }
 
+export const updateUsers = async(values, userId) => {
+    const results = await axios.put(SERVER_URL_V1 + `users`, values);
+    return results.data.data
+}
+
+export const updateCart = async (id, qty) => {
+    const results = await axios.post(SERVER_URL_V1 + `cart/update/${id}`, {id, qty});
+    return results.data.data
+}

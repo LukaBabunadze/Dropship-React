@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 });
 
 const addProductValidation = yup.object().shape({
-    title: yup.string().min(1).max(20).required(),
+    title: yup.string().min(1).max(15).required(),
     description: yup.string().min(5).max(255).required(),
     price: yup.number().integer().min(1).required(),
     image: yup.string().url().required(),
