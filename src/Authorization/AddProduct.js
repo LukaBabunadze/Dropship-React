@@ -20,32 +20,28 @@ const useStyles = makeStyles({
         alignItems: "flex-start",
         gap: 20,
     },
-    inputs: {
-        borderBlockEndStyle: "none",
-        borderBlockStartStyle: "none",
-        borderStyle: "none",
-        m: 1,
-        border: 1,
-        width: 330,
-        height: 30,
-        borderRadius: 8,
-    },
     title: {
+        paddingTop: 40,
         width: 350,
-        height: 50,
+        color: "#2B2C41",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
     content: {
         width: 350,
-        height: 300,
+        height: 370,
     },
     button: {
-        display: "block",
+        display: "inline",
         alignSelf: "center",
         marginTop: 20,
-    }
+        width: 120,
+        backgroundColor: "#2B2C41"
+    },
+    mainTitle: {
+        fontSize: 18,
+    },
 });
 
 const addProductValidation = yup.object().shape({
@@ -89,7 +85,7 @@ const AddProduct = () => {
         <div  className={classes.main}>
             <Dialog open={true}>
                 <DialogTitle className={classes.title}>
-                    {productId ? "Edit" : "Add"} product
+                    <Button variant="outlined" className={classes.mainTitle}><b>{productId ? "EDIT" : "ADD"} PRODUCT</b></Button>
                 </DialogTitle>
                 <DialogActions className={classes.content}>
                     <Formik
@@ -116,25 +112,27 @@ const AddProduct = () => {
                             <Field
                                 placeholder="Title"
                                 name="title"
-                                className={classes.inputs}
+                                className="add-product__inputs"
                             />
                             <ErrorMessage name="title" component="div"/>
                             <Field
+                                helperText="blaa"
                                 placeholder="Description"
+                                component="textarea"
                                 name="description"
-                                className={classes.inputs}
+                                className="add-product__text-area"
                             />
                             <ErrorMessage name="description" component="div"/>
                             <Field
                                 placeholder="Price"
                                 name="price"
-                                className={classes.inputs}
+                                className="add-product__inputs"
                             />
                             <ErrorMessage name="price" component="div"/>
                             <Field
                                 placeholder="Image URL"
                                 name="imageUrl"
-                                className={classes.inputs}
+                                className="add-product__inputs"
                             />
                             <ErrorMessage name="imageUrl" component="div"/>
                             <Button

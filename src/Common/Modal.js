@@ -7,6 +7,9 @@ import {Button} from "@material-ui/core";
 import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 
+
+toast.configure();
+
 const Modal = ({ isOpen }) => {
 
     const [open, setOpen] = useState(isOpen)
@@ -33,7 +36,7 @@ const Modal = ({ isOpen }) => {
 
 
     const successToast = () => {
-        toast("success", {
+        toast.success("success", {
             className: "custom-toast",
             position: toast.POSITION.TOP_CENTER
         })
@@ -72,7 +75,7 @@ const Modal = ({ isOpen }) => {
                             <Button onClick={modalClose}>X</Button>
                         </div>
                         <h1 className="item_title">{product.title}</h1>
-                        <Button className="item__button" onClick={successToast}><b>Add to My Inventory</b></Button>
+                        <button className="item__button" onClick={successToast}><b>Add to My Inventory</b></button>
                         <span className="modal-icons--wrapper">
                             <label className="modal-labels">Edit</label>
                             <Button

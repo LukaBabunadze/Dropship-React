@@ -18,11 +18,12 @@ import {TextField, Button} from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import RemoveShoppingCartOutlinedIcon from '@material-ui/icons/RemoveShoppingCartOutlined';
-import Snackbar from "@material-ui/core/Snackbar";
-import {Alert} from "@material-ui/lab";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 
 
+toast.configure();
 
 const useStyles = makeStyles({
     table: {
@@ -80,7 +81,6 @@ const Cart = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const cartProducts = useSelector(state => state.cart.cartProducts)
-    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         cart()
@@ -107,20 +107,15 @@ const Cart = () => {
             });
         })
     };
-    const handleClose = (event, reason) => {
-        if (reason === "clickaway"){
-            return;
-        }
-        setOpen(false)
-    }
 
+    const notify = () => {
+        toast.warn("Product Deleted", {
+            position: toast.POSITION.BOTTOM_LEFT,
+            autoClose: 3000,
+        })
+    }
     return(
         <div className={classes.wrapper}>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="success" elevation={6} variant="filled">
-                    Product Deleted
-                </Alert>
-            </Snackbar>
             <h2 className="cart__header">SHOPPING CART (1)</h2>
             <TableContainer component={Paper} className={classes.container}>
                 <Table className={classes.table} aria-label="simple table">
@@ -170,8 +165,8 @@ const Cart = () => {
                                         </TableCell>
                                     </TableCell>
                                     <TableCell align="center" style={{paddingRight: 30}}>
-                                        <Button onClick={() => deleteCartItem(item.id) && setOpen(true)}>
-                                            <RemoveShoppingCartOutlinedIcon/>
+                                        <Button onClick={() => deleteCartItem(item.id)}>
+                                            <RemoveShoppingCartOutlinedIcon onClick={notify}/>
                                         </Button>
                                     </TableCell>
                                 </TableRow>

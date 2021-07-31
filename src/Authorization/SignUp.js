@@ -11,6 +11,9 @@ import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined"
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+
 const useStyle = makeStyles({
     root: {
         height: 600,
@@ -33,11 +36,12 @@ const useStyle = makeStyles({
         width: 200,
         fontSize: 16,
         marginTop: 14,
-        backgroundColor: "#61dafb",
+        color: "#FFF",
+        backgroundColor: "#2B2C41",
     }
 });
 
-
+toast.configure()
 const SignUp = () => {
 
     const history = useHistory();
@@ -51,13 +55,20 @@ const SignUp = () => {
         })
             .catch(err => {alert(Error.message)})
     }
+
+    const successToast = () => {
+        toast.success("Registration is Successful", {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 3000
+        })
+    }
     return(
                <Dialog  open={true}>
                    <div className={classes.root}>
                        <div className="signup__header">
                            <DialogContent><img className="login__logo" src={logo}/></DialogContent>
-                           <DialogTitle>
-                               Register Here
+                           <DialogTitle className="signup__header-title">
+                               <b>Register Here</b>
                            </DialogTitle>
                        </div>
                        <DialogActions>
@@ -132,9 +143,8 @@ const SignUp = () => {
                                         type="submit"
                                         variant="contained"
                                         className={classes.button}
-                                        color="primary"
                                     >
-                                        SUBMIT
+                                        <b>SUBMIT</b>
                                     </Button>
                                 </Form>
                            </Formik>

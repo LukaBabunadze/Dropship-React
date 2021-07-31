@@ -31,7 +31,7 @@ const useStyles = makeStyles({
         marginRight: "auto",
     },
     button: {
-        width: 300,
+        width: 200,
         height: 50,
         boxShadow: "none",
         borderRadius: 8,
@@ -39,7 +39,8 @@ const useStyles = makeStyles({
         marginTop: 0,
         marginLeft: "auto",
         marginRight: "auto",
-        backgroundColor: "#70D9E2",
+        backgroundColor: "#2B2C41",
+        fontSize: 16,
     }
 });
 
@@ -98,7 +99,7 @@ const Login = () => {
                         <div className="login__header">
                             <DialogContent><img className="login__logo" src={logo}/></DialogContent>
                             <DialogTitle className="login__header-title">
-                                Members Log In
+                                <b>Members Log In</b>
                             </DialogTitle>
                         </div>
                         <DialogActions>
@@ -130,7 +131,7 @@ const Login = () => {
                                     variant="contained"
                                     color="primary"
                                 >
-                                    Submit
+                                    <b>Submit</b>
                                 </Button>
                             </form>
                         </DialogActions>

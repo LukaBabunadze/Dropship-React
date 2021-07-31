@@ -5,13 +5,11 @@ import SortHtml from "./SortHtml";
 import Modal from "./Modal"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
-import {Switch, Route, Link, useParams, useHistory} from "react-router-dom";
+import {Link, useParams,} from "react-router-dom";
 import {products as productsAPI} from "./API";
 import {useDispatch, useSelector} from "react-redux";
 import Header from "../Layout/Header";
-import {Button, Snackbar} from "@material-ui/core";
-import {Alert} from "@material-ui/lab";
-import {login} from "./API";
+
 
 
 const Catalog = () => {
@@ -20,7 +18,6 @@ const Catalog = () => {
     const dispatch = useDispatch();
 
     const [inputText, setInputText] = useState('search...');
-    const [open, setOpen] = useState(false);
     const [sortType, setSortType] = useState();
     const [selectedProducts, setSelectedProducts] = useState([]);
 
@@ -147,17 +144,7 @@ const Catalog = () => {
         })
     };
 
-    // *** Success Message ***
-    // useEffect(() => {
-    //     setOpen(true)
-    // }, [])
-    //
-    // const handleClose = (e, reason) => {
-    //     if (reason === "clickaway") {
-    //         return;
-    //     }
-    //     setOpen(false);
-    // }
+
 
     // *** Modal Id ***
 
@@ -218,11 +205,6 @@ const Catalog = () => {
                 </Grid>
             </section>
             <Modal  isOpen={id} />
-            {/*<Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>*/}
-            {/*    <Alert onClose={handleClose} severity="success" elevation={6} variant="filled">*/}
-            {/*        Log In Successful*/}
-            {/*    </Alert>*/}
-            {/*</Snackbar>*/}
         </div>
 
     );
