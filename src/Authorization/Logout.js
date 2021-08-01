@@ -5,11 +5,11 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyle = makeStyles({
     button: {
         marginLeft: 50,
-        backgroundColor: "#61D5DF",
+        backgroundColor: "#5D6B9F",
         fontSize: 12,
         whiteSpace: "nowrap",
-        height: 30,
-        width: 80,
+        height: 25,
+        width: 70,
     }
 })
 

@@ -197,6 +197,9 @@ body {
   width: 100px;
   margin-right: 15px;
 }
+.header__button {
+  background-color: #2B2C41;
+}
 .header__span {
   color: #3E455D;
   font-size: 13px;
@@ -379,7 +382,7 @@ item__info-price {
   height: 50px;
   padding: 9.3px 29px 8.3px 20px;
   border-radius: 7px;
-  box-shadow: 0 3px 6px 0 rgb(0 0 0 / 5%);
+  box-shadow: 0 3px 6px 0 rgb(0 0 0.5%);
   border-top: 1.5px solid #fff;
   background-color: #FAFAFA;
   display: flex;

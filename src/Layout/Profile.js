@@ -91,19 +91,6 @@ const Profile = () => {
                                 <Grid item xs={6} >
                                     <label className={classes.label}><b>CHANGE PASSWORD</b></label>
                                     <Paper className={classes.paper}>
-                                        <div>
-                                            <span>Current Password</span>
-                                            <input type="text"
-                                            />
-                                        </div>
-                                        <div>
-                                            <span>Current Password</span>
-                                            <input type="text"/>
-                                        </div>
-                                        <div>
-                                            <span>Current Password</span>
-                                            <input type="text"/>
-                                        </div>
                                     </Paper>
                                 </Grid>
                                 <Grid item xs={6}>

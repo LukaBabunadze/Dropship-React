@@ -108,10 +108,21 @@ const Cart = () => {
         })
     };
 
+    const deleteItem = (id) => {
+        deleteCartItem(id).then(res =>
+            cart()
+                .then(res => {
+                    dispatch({
+                        type: "CART_PRODUCT_DELETED",
+                        payload: res
+                    });
+                }))
+    };
+
     const notify = () => {
         toast.warn("Product Deleted", {
             position: toast.POSITION.BOTTOM_LEFT,
-            autoClose: 3000,
+            autoClose: 2000,
         })
     }
     return(
@@ -164,8 +175,8 @@ const Cart = () => {
                                                 </Button>
                                         </TableCell>
                                     </TableCell>
-                                    <TableCell align="center" style={{paddingRight: 30}}>
-                                        <Button onClick={() => deleteCartItem(item.id)}>
+                                    <TableCell alignr="center" style={{paddingRight: 30}}>
+                                        <Button onClick={() => deleteItem(item.id)}>
                                             <RemoveShoppingCartOutlinedIcon onClick={notify}/>
                                         </Button>
                                     </TableCell>

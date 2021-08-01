@@ -5,7 +5,7 @@ import {useHistory} from "react-router-dom";
 
 const useStyle = makeStyles({
     button: {
-        backgroundColor: "#61D5DF",
+        backgroundColor: "#5D6B9F",
         marginLeft: "auto",
         marginRight: 30,
         height: 30,

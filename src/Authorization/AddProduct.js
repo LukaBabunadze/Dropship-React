@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
 import {Route, Switch, useHistory, useParams} from "react-router-dom";
-import {getProduct, updateProduct, addProduct} from "../Common/API";
+import {getProduct, updateProduct, addProduct, products as productsAPI} from "../Common/API";
 import {Formik, Form, Field, ErrorMessage} from "formik"
 import {Button, Dialog, DialogActions, DialogTitle} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import * as yup from "yup"
+import * as yup from "yup";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles({
     main: {
@@ -25,7 +28,7 @@ const useStyles = makeStyles({
         width: 350,
         color: "#2B2C41",
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "flex-end",
         alignItems: "center",
     },
     content: {
@@ -41,7 +44,14 @@ const useStyles = makeStyles({
     },
     mainTitle: {
         fontSize: 18,
+        alignSelf: "center",
+        marginRight: 25,
+        color: "#2B2C41",
     },
+    closeButton: {
+        alignSelf: "flex-end",
+        backgroundColor: "#ededed",
+    }
 });
 
 const addProductValidation = yup.object().shape({
@@ -51,14 +61,27 @@ const addProductValidation = yup.object().shape({
     image: yup.string().url().required(),
 })
 
-
+toast.configure();
 const AddProduct = () => {
 
     const classes = useStyles();
+    const history = useHistory();
+    const dispatch = useDispatch();
     const { productId } = useParams();
     const [product, setProduct] = useState({});
 
-
+    const successToast = (text) => {
+        toast.success(`${text}`, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 2000
+        })
+    };
+    const errorToast = (message) => {
+        toast.error(`${message}`, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 2000
+        })
+    }
     useEffect(() => {
         if(productId) {
             getProduct(productId).then(res => {
@@ -67,18 +90,32 @@ const AddProduct = () => {
         }
     }, [productId]);
 
-    console.log(product);
 
     const handleSubmit = values => {
       if (productId) {
-          updateProduct(productId, values).then(res => {
-              alert("update successful")
-          }).catch (err => {alert(err.message)})
+          updateProduct(productId, values)
+              .then(res => {
+              successToast("Product Updated");
+          })
+              .catch (err => {errorToast("Something Went Wrong")})
       }  else {
-          addProduct(values).then(res => {
-              alert("product was added successfully");
-          }).catch (err => {alert(err.message)})
+          addProduct(values)
+              .then(res => {
+              successToast("Product Added");
+          })
+              .catch (err => {errorToast("Something Went Wrong")})
       }
+    };
+
+    const modalClose = () => {
+        productsAPI().then(res => {
+            dispatch({
+                type: "PRODUCT_CHANGED",
+                payload: res,
+            });
+            localStorage.setItem("products", JSON.stringify(res))
+        })
+        history.push("/catalog")
     };
 
     return (
@@ -86,6 +123,7 @@ const AddProduct = () => {
             <Dialog open={true}>
                 <DialogTitle className={classes.title}>
                     <Button variant="outlined" className={classes.mainTitle}><b>{productId ? "EDIT" : "ADD"} PRODUCT</b></Button>
+                    <Button onClick={modalClose} className={classes.closeButton}>X</Button>
                 </DialogTitle>
                 <DialogActions className={classes.content}>
                     <Formik

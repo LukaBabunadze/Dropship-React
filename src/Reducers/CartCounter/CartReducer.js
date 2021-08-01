@@ -14,6 +14,11 @@ const CartReducer = (state = initialState, action) => {
                 ...state,
                 cartProducts: action.payload
             }
+        case "CART_PRODUCT_DELETED":
+            return {
+                ...state,
+                cartProducts: action.payload
+            }
         default:
             return state;
     }

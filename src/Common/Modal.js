@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
-import {deleteProduct, getProduct} from "./API";
+import {deleteProduct, getProduct, products as productsAPI} from "./API";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import {Button} from "@material-ui/core";
 import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
+import {useDispatch} from "react-redux";
 
 
 toast.configure();
 
 const Modal = ({ isOpen }) => {
 
-    const [open, setOpen] = useState(isOpen)
+    const [open, setOpen] = useState(isOpen);
+    const dispatch = useDispatch();
     const [style, setStyle] = useState({display: "none"});
     const [product, setProduct] = useState([]);
     const history = useHistory();
@@ -35,10 +37,24 @@ const Modal = ({ isOpen }) => {
     }
 
 
-    const successToast = () => {
-        toast.success("success", {
-            className: "custom-toast",
-            position: toast.POSITION.TOP_CENTER
+    const warnToast = () => {
+        toast.warn("Product Deleted", {
+            position: toast.POSITION.BOTTOM_CENTER,
+            autoClose: 2000
+        })
+    }
+
+    const deleteModalProduct = (id) => {
+        deleteProduct(id).then(res => {
+            productsAPI().then(res => {
+                dispatch({
+                    type: "PRODUCT_DELETED",
+                    payload: res,
+                });
+                localStorage.setItem("products", JSON.stringify(res))
+                warnToast()
+            })
+            history.push("/catalog")
         })
     }
 
@@ -75,7 +91,7 @@ const Modal = ({ isOpen }) => {
                             <Button onClick={modalClose}>X</Button>
                         </div>
                         <h1 className="item_title">{product.title}</h1>
-                        <button className="item__button" onClick={successToast}><b>Add to My Inventory</b></button>
+                        <button className="item__button"><b>Add to My Inventory</b></button>
                         <span className="modal-icons--wrapper">
                             <label className="modal-labels">Edit</label>
                             <Button
@@ -92,7 +108,7 @@ const Modal = ({ isOpen }) => {
                                 value="delete"
                             >
                                 <DeleteOutlineOutlinedIcon
-                                    onClick={() => deleteProduct(product.id)}
+                                    onClick={() => deleteModalProduct(product.id)}
                                     aria-label="delete"
                                 />
                             </Button>

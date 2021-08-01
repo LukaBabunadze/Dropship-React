@@ -35,6 +35,16 @@ const ProductReducer = (state = initialState, action) => {
                 ...state,
                 productList: action.payload
             };
+        case "PRODUCT_CHANGED":
+            return {
+              ...state,
+              productList: action.payload
+            };
+        case "PRODUCT_DELETED":
+            return {
+                ...state,
+                productList: action.payload
+            };
         default:
             return state;
     }
